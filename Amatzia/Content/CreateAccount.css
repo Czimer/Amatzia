@@ -2,27 +2,30 @@
 
 body {
     background-color: #e6ecf0;
+    height: 100%;
 }
 
-.loginDiv {
+.mainDiv {
     width: 50%;
-    height: 50%;
-    margin-left: 25%;
-    margin-top: 15%;
+    height: 70%;
+    margin-left: 15%;
+    margin-top: 7%;
     border: 1px solid;
     border-color: lightgray;
     border-radius: 1px;
     font-family: "Alef Hebrew";
     background-color: white;
+    position: fixed;
+    overflow-y: scroll;
 }
 
-.loginForm {
+.mainForm {
     width: 80%;
     height: 80%;
     margin-left: 8%;
     margin-top: 3%;
 }
 
-.submitButton {
+.submitButton {   
     text-align: center;
 }

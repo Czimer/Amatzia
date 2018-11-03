@@ -8,45 +8,36 @@
 @Styles.Render("~/Content/Login.css")
 
 <div class="loginDiv">
-    <div class="loginForm">
+    <div class="loginForm form-horizontal">
         <h1>Log in to Amatzia</h1>
         <br />
         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-            <table>
-                <tr>
-                    <td>@Html.LabelFor(a => a.UserName)</td>
-                    <td>@Html.TextBoxFor(a => a.UserName)</td>
-                    <td>@Html.ValidationMessageFor(a => a.UserName)</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(a => a.Password)</td>
-                    <td>@Html.PasswordFor(a => a.Password)</td>
-                    <td>@Html.ValidationMessageFor(a => a.Password)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <br />
-                        <div class="submitButton">
-                            <input type="submit" value="Login" />
-                        </div>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <br />
-                        <a href="@Url.Action("Create", "User")">New to Amatzia? Sign Up</a>
-                    </td>
-                    <td></td>
-                </tr>
-            </table>
-        }
+        <div class="form-group">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.UserName) } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger col-md-6" })
+        </div>
+
+        <br />
+        <div class="form-group">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-md-6" })
+        </div>
+
+        <br />
+        <div class="submitButton">
+            <input type="submit" value="Login" class="btn-primary" />
+        </div>
+
+        <div>
+            <br />
+            <a href="@Url.Action("Create", "User")">New to Amatzia? Sign Up</a>
+        </div>
+        <br />
+}
 
     </div>
 </div>
