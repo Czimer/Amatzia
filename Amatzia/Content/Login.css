@@ -1,0 +1,28 @@
+﻿@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+
+body {
+    background-color: #e6ecf0;
+}
+
+.loginDiv {
+    width: 50%;
+    height: 40%;
+    margin-left: 25%;
+    margin-top: 15%;
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 1px;
+    font-family: "Alef Hebrew";
+    background-color: white;
+}
+
+.loginForm {
+    width: 80%;
+    height: 80%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.submitButton {
+    text-align: center;
+}

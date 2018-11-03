@@ -2,43 +2,52 @@
 
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Login/_LoginLayoutPage.cshtml";
+    Layout = "~/Views/Shared/_CleanLayout.cshtml";
 }
 
-<div id="mainContent">
-    <h2>Login</h2>
-    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken() 
-        @Html.ValidationSummary(true)
+@Styles.Render("~/Content/Login.css")
 
-        <table>
-            <tr>
-                <td>@Html.LabelFor(a => a.UserName)</td>
-                <td>@Html.TextBoxFor(a => a.UserName)</td>
-                <td>@Html.ValidationMessageFor(a => a.UserName)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(a => a.Password)</td>
-                <td>@Html.PasswordFor(a => a.Password)</td>
-                <td>@Html.ValidationMessageFor(a => a.Password)</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Login" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <a href="@Url.Action("Create", "User")">Don't have an account? Sign In</a>
-                </td>
-                <td></td>
-            </tr>
-        </table>
-    }
+<div class="loginDiv">
+    <div class="loginForm">
+        <h1>Log in to Amatzia</h1>
+        <br />
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(a => a.UserName)</td>
+                    <td>@Html.TextBoxFor(a => a.UserName)</td>
+                    <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(a => a.Password)</td>
+                    <td>@Html.PasswordFor(a => a.Password)</td>
+                    <td>@Html.ValidationMessageFor(a => a.Password)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <br />
+                        <div class="submitButton">
+                            <input type="submit" value="Login" />
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <br />
+                        <a href="@Url.Action("Create", "User")">New to Amatzia? Sign Up</a>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        }
+
+    </div>
 </div>
 
