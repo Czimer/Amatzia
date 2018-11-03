@@ -33,7 +33,6 @@ namespace Amatzia.Controllers
             }
 
             return View(NewUser);
-            // yarin
         }
     }
 }

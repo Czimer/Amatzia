@@ -7,9 +7,9 @@ using Amatzia.Models;
 
 namespace Amatzia.Controllers
 {
-    public class UserController : Controller
+    public class RecepieController : Controller
     {
-        // GET: User
+        // GET: Recepie
         public ActionResult Index()
         {
             return View();
@@ -20,19 +20,18 @@ namespace Amatzia.Controllers
             return View();
         }
 
-        // POST: User/Create
+        // POST: Recepie/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,DateOfBirth,Country,UserName,Password")] User NewUser)
+        public ActionResult Create([Bind(Include = "Id,User,Name,Ingredients,Instructions,Difficulty,uploadDate")] Recepie NewRecepie)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Add user to DB 
-
+                // TODO: Add recepie to DB 
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(NewUser);
+            return View(NewRecepie);
         }
     }
 }
