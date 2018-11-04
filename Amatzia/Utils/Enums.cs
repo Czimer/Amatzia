@@ -10,7 +10,8 @@ namespace Amatzia.Utils
         public enum Gender
         {
             Male,
-            Female
+            Female,
+            Other
         }
     }
 }

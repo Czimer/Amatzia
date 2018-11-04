@@ -9,6 +9,8 @@ namespace Amatzia.Controllers
 {
     public class UserController : Controller
     {
+        private AmatziaEntities AmatziaDB = new AmatziaEntities();
+
         // GET: User
         public ActionResult Index()
         {
@@ -23,11 +25,13 @@ namespace Amatzia.Controllers
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,DateOfBirth,Country,UserName,Password")] User NewUser)
+        public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,Gender,DateOfBirth,Country,UserName,Password")] User NewUser)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Add user to DB 
+                // TODO: Add user to DB
+                AmatziaDB.Users.Add(NewUser);
+                AmatziaDB.SaveChanges();
 
                 return RedirectToAction("Index", "Home");
             }

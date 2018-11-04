@@ -1,4 +1,6 @@
-﻿@model Amatzia.Models.User
+﻿@using Amatzia.Models
+
+@model Amatzia.Models.User
 
 @{
     ViewBag.Title = "New User";
@@ -36,7 +38,7 @@
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Gender) } })
+                @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Gender) } })
                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger col-md-6" })
             </div>
 
