@@ -2,6 +2,7 @@
 
 body {
     background-color: #e6ecf0;
+    font-family: "Alef Hebrew";
 }
 
 .loginDiv {
@@ -12,7 +13,6 @@ body {
     border: 1px solid;
     border-color: lightgray;
     border-radius: 1px;
-    font-family: "Alef Hebrew";
     background-color: white;
 }
 

@@ -35,10 +35,14 @@ namespace Amatzia.Models
 
         public string Country { get; set; }
 
+        [Required]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
+        [Required]
         public string Password { get; set; }
+
+        public Boolean IsManager { get; set; }
     }
 
     public enum Gender

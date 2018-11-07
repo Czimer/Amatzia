@@ -1,6 +1,9 @@
-﻿body {
+﻿@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: "Alef Hebrew";
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +24,16 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+#modelTable th,
+#modelTable tr {
+    padding-right: 10px;
+}
+
+#modelDetails dt {
+    font-weight: bold;
+    float: left;
+    margin-right: 5px;
+    text-align: left;
 }

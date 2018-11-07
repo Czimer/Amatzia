@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Amatzia.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <table id="modelTable" class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(user => user.FirstName)</th>
+            <th>@Html.DisplayNameFor(user => user.LastName)</th>
+            <th>@Html.DisplayNameFor(user => user.Gender)</th>
+            <th>@Html.DisplayNameFor(user => user.DateOfBirth)</th>
+            <th>@Html.DisplayNameFor(user => user.Country)</th>
+            <th></th>
+        </tr>
+
+        @if (Model.Count() > 0)
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(currUser => user.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.DateOfBirth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.Country)
+                    </td>
+                    <td>
+                        @Html.ActionLink("| ", "Details", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-info-sign" })
+
+                        @if ((int)TempData["IsManager"] == 1)
+    {
+                    @Html.ActionLink("| ", "Edit", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-edit" });
+                    @Html.ActionLink(" ", "Delete", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-trash" });
+}
+
+                    </td>
+                </tr>
+            }
+        }
+        </table>
+    }

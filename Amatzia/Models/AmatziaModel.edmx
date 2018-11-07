@@ -17,6 +17,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsManager" Type="bit" Nullable="false" />
         </EntityType>
         <Function Name="GetNextSequenceValueUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="AmatziaModelStoreContainer">
@@ -38,6 +39,7 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="IsManager" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="AmatziaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -52,7 +54,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="IsTypeOf(AmatziaModel.User)">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -60,6 +62,7 @@
           <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="IsManager" ColumnName="IsManager" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
