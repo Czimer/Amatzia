@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Amatzia.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Amatzia.Controllers
 {
@@ -17,6 +20,7 @@ namespace Amatzia.Controllers
         public ActionResult Index()
         {
             ViewBag.Selected = "User";
+            TempData["Countries"] = this.GetCountries();
 
             IEnumerable<User> Users = (IEnumerable<User>)TempData["Users"] ?? AmatziaDB.Users.ToList();
 
@@ -136,6 +140,29 @@ namespace Amatzia.Controllers
 
         }
 
+        private List<string> GetCountries()
+        {
+            List<string> lstCountries = new List<string>();
 
+            string URL = "https://restcountries.eu/rest/v2/all";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            request.ContentType = "application/json; charset=utf-8";
+
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+
+                JArray jaCountries = JArray.Parse(reader.ReadToEnd());
+
+                foreach (JObject CountryObject in jaCountries)
+                {
+                    lstCountries.Add(CountryObject["name"].ToString());
+                }
+            }
+
+            return (lstCountries);
+        }
     }
 }

@@ -31,8 +31,9 @@ namespace Amatzia.Controllers
                 // Validate user and password
                 if (EnterUser != null)
                 {
-                    TempData["IsManager"] = EnterUser.IsManager ? 1 : 0;
-
+                    // Set user is manager or not
+                    TempData["IsManager"] = EnterUser.IsManager ? bool.TrueString : bool.FalseString;
+                
                     return RedirectToAction("Index", "Home");
                 }
             }
