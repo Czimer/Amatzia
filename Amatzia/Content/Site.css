@@ -43,8 +43,8 @@ textarea {
     width: 100%;
 }
 
-.map {
-    height: 400px; 
-    width: 400px;
+#map {
+    height: 250px; 
+    width: 250px;
     background-color: aqua;
 }
