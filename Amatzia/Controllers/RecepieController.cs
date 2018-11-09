@@ -46,7 +46,7 @@ namespace Amatzia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,Name,Ingredients,Instructions,Difficulty,UploadDate")] Recepie NewRecepie)
+        public ActionResult Create([Bind(Include = "Id,UserId,Name,Ingredients,Instructions,Difficulty,UploadDate,duration")] Recepie NewRecepie)
         {
             if (ModelState.IsValid)
             {
@@ -60,10 +60,63 @@ namespace Amatzia.Controllers
             return View(NewRecepie);
         }
 
+        // GET: Recepie/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         // GET: Recepie/Details/5
         public ActionResult Details(int? RecepieId)
         {
+            if (RecepieId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
             return (this.GetRecepieById(RecepieId));
+        }
+
+
+        [HttpGet]
+        public ActionResult Search(
+           DateTime? UploadDate,
+           string Name,
+           string Ingredients,
+           int Difficulty,
+           int duration)
+        {
+            IEnumerable<Recepie> FilteredRecepies = AmatziaDB.Recepies.ToList();
+
+            if (UploadDate != null)
+            {
+                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.UploadDate == UploadDate);
+            }
+
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Name.ToUpper().Contains(Name.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(Ingredients))
+            {
+                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Ingredients.ToUpper().Contains(Ingredients.ToUpper()));
+            }
+
+            if (Difficulty != null)
+            {
+                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Difficulty == Difficulty);
+            }
+
+            if (duration != null)
+            {
+                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.duration == duration);
+            }
+
+            TempData["Posts"] = FilteredRecepies;
+
+            return RedirectToAction("Index", "Blog");
         }
 
 

@@ -150,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecepieController.cs" />
@@ -171,6 +172,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AmatziaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>AmatziaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Recepie.cs">
       <DependentUpon>AmatziaModel.tt</DependentUpon>
@@ -252,6 +256,9 @@
       <BrowseToURL>~/Recepie/Index</BrowseToURL>
     </Content>
     <Content Include="Views\Recepie\Edit.cshtml" />
+    <Content Include="Views\Recepie\Create.cshtml" />
+    <Content Include="Views\Recepie\Details.cshtml" />
+    <Content Include="Views\Recepie\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

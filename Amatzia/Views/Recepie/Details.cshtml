@@ -1,0 +1,72 @@
+﻿@model Amatzia.Models.Recepie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="modelDetails">
+        <h4>recepie</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.Name):
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.Name):
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.Ingredients)
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.Ingredients):
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.Instructions):
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.Instructions):
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.Difficulty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.Difficulty)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.UploadDate):
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.UploadDate):
+            </dd>
+           
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.duration)
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.duration)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(recepie => recepie.UserId):
+            </dt>
+            <dd>
+                @Html.DisplayFor(recepie => recepie.UserId):
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { recepieId = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

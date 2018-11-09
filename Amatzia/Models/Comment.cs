@@ -12,16 +12,12 @@ namespace Amatzia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Comment
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public string Gender { get; set; }
-        public string Country { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public int Id { get; set; }
+        public int RecepieId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
         public int UserId { get; set; }
-        public bool IsManager { get; set; }
     }
 }

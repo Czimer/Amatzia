@@ -13,6 +13,12 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    <div>
+        <br />
+        <a href="@Url.Action("Create", "Recepie")">Add a recepie</a>
+    </div>
+    <br />
+
     <table id="modelTable" class="table">
         <tr>
             <th>@Html.DisplayNameFor(recepie => recepie.Name)</th>
@@ -29,34 +35,34 @@
         {
             foreach (var recepie in Model)
             {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.Ingredients)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.Instructions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.Difficulty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.UploadDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => recepie.UserId)
-            </td>
-            <td>
-                @Html.ActionLink("| ", "Details", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-info-sign" })
-                @Html.ActionLink("| ", "Edit", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-edit" });
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.Ingredients)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.Instructions)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.Difficulty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.duration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.UploadDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recepie.UserId)
+                    </td>
+                    <td>
+                        @Html.ActionLink("| ", "Details", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-info-sign" })
+                        @Html.ActionLink("| ", "Edit", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-edit" });
 
-            </td>
-        </tr>
+                    </td>
+                </tr>
             }
         }
     </table>
