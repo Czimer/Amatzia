@@ -114,9 +114,9 @@ namespace Amatzia.Controllers
                 FilteredRecepies = FilteredRecepies.Where(recepie => recepie.duration == duration);
             }
 
-            TempData["Posts"] = FilteredRecepies;
+            TempData["Recepies"] = FilteredRecepies;
 
-            return RedirectToAction("Index", "Blog");
+            return RedirectToAction("Index", "Recepie");
         }
 
 
