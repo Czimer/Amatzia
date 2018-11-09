@@ -16,7 +16,8 @@ namespace Amatzia.Controllers
     public class UserController : Controller
     {
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
-        private List<string> AllCountries = GetCountries();
+        public static List<string> AllCountries = GetCountries();
+        private static string prevUserName;
 
         // GET: User
         public ActionResult Index()
@@ -33,6 +34,7 @@ namespace Amatzia.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
+            TempData["Countries"] = AllCountries;
             return View();
         }
 
@@ -63,7 +65,11 @@ namespace Amatzia.Controllers
         // GET: User/Edit/[id]
         public ActionResult Edit(int? UserId)
         {
-            return (this.GetUserById(UserId));
+            TempData["Countries"] = AllCountries;
+            User CurrUser = this.GetUserById(UserId);
+            prevUserName = CurrUser.UserName;
+
+            return View(CurrUser);
         }
 
         // POST: User/Edit/[id]
@@ -74,7 +80,7 @@ namespace Amatzia.Controllers
             if (ModelState.IsValid)
             {
                 // Check if user name already exist
-                if (UserNameAlreadyExist(CurrUser.UserName))
+                if (CurrUser.UserName != prevUserName && UserNameAlreadyExist(CurrUser.UserName))
                 {
                     ViewBag.Message = "User name already exist";
                 }
@@ -93,7 +99,7 @@ namespace Amatzia.Controllers
         // GET: User/Delete/[id]
         public ActionResult Delete(int? UserId)
         {
-            return (this.GetUserById(UserId));
+            return View(this.GetUserById(UserId));
         }
 
         // POST: User/Delete/[id]
@@ -111,7 +117,7 @@ namespace Amatzia.Controllers
         // GET: User/Details/5
         public ActionResult Details(int? UserId)
         {
-            return (this.GetUserById(UserId));
+            return View(this.GetUserById(UserId));
         }
 
         // GET: User/Search
@@ -156,31 +162,24 @@ namespace Amatzia.Controllers
 
 
         // Get the user entity by id
-        private ActionResult GetUserById(int? UserId)
+        private User GetUserById(int? UserId)
         {
+            User foundUser = new User();
+
             // Check if user id is null
-            if (UserId == null)
+            if (UserId != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                foundUser = AmatziaDB.Users.Find(UserId);
             }
 
-            // Get the user entity
-            User currUser = AmatziaDB.Users.Find(UserId);
-
-            // Check if user with this id was found
-            if (currUser == null)
-            {
-                return HttpNotFound("User with user id " + UserId.ToString() + " not found");
-            }
-
-            return View(currUser);
+            return (foundUser);
         }
 
         private bool UserNameAlreadyExist(string Username)
         {
             return (AmatziaDB.Users.Where(user => user.UserName == Username).Count() == 1);
-
         }
+
 
         private static List<string> GetCountries()
         {
@@ -206,5 +205,6 @@ namespace Amatzia.Controllers
 
             return (lstCountries);
         }
+
     }
 }
