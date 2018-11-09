@@ -37,3 +37,8 @@ textarea {
     margin-right: 5px;
     text-align: left;
 }
+
+.searchDiv {
+    display: inline-block;
+    width: 100%;
+}
