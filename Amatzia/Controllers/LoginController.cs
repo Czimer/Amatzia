@@ -5,12 +5,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Amatzia.Models;
+using Amatzia.Utils;
 
 namespace Amatzia.Controllers
 {
     public class LoginController : Controller
     {
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
+        
 
         // GET: Login
         public ActionResult Login()
@@ -32,8 +34,10 @@ namespace Amatzia.Controllers
                 if (EnterUser != null)
                 {
                     // Set user is manager or not
-                    TempData["IsManager"] = EnterUser.IsManager ? bool.TrueString : bool.FalseString;
-                
+                    GlobalVars.IsManager = EnterUser.IsManager ? true : false;
+                    TempData["IsManager"] = GlobalVars.IsManager.ToString();
+
+
                     return RedirectToAction("Index", "Home");
                 }
             }

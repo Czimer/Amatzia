@@ -9,20 +9,23 @@ using System.Web;
 using System.Web.Mvc;
 using Amatzia.Models;
 using Newtonsoft.Json.Linq;
+using Amatzia.Utils;
 
 namespace Amatzia.Controllers
 {
     public class UserController : Controller
     {
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
+        private List<string> AllCountries = GetCountries();
 
         // GET: User
         public ActionResult Index()
         {
             ViewBag.Selected = "User";
-            TempData["Countries"] = this.GetCountries();
+            TempData["Countries"] = AllCountries;
+            TempData["IsManager"] = GlobalVars.IsManager.ToString();
 
-            IEnumerable<User> Users = (IEnumerable<User>)TempData["Users"] ?? AmatziaDB.Users.ToList();
+            IEnumerable<User> Users = (IEnumerable<User>)TempData["UsersFound"] ?? AmatziaDB.Users.ToList();
 
             return View(Users);
         }
@@ -111,6 +114,45 @@ namespace Amatzia.Controllers
             return (this.GetUserById(UserId));
         }
 
+        // GET: User/Search
+        [HttpGet]
+        public ActionResult Search([Bind(Include = "UserId, FirstName, LastName, Gender, DateOfBirth, Country, UserName, Password")] User SearchedUser)
+        {
+            IEnumerable<User> UsersFound = AmatziaDB.Users.ToList();
+
+            if (!string.IsNullOrEmpty(SearchedUser.FirstName))
+            {
+                UsersFound = UsersFound.Where(user => user.FirstName.ToUpper().Contains(SearchedUser.FirstName.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(SearchedUser.LastName))
+            {
+                UsersFound = UsersFound.Where(user => user.LastName.ToUpper().Contains(SearchedUser.LastName.ToUpper()));
+            }
+
+            if (GlobalVars.IsManager)
+            {
+                if (SearchedUser.DateOfBirth != null)
+                {
+                    UsersFound = UsersFound.Where(user => user.DateOfBirth == SearchedUser.DateOfBirth);
+                }
+
+                if (SearchedUser.Gender != null)
+                {
+                    UsersFound = UsersFound.Where(user => user.Gender == SearchedUser.Gender);
+                }
+
+                if (SearchedUser.Country != null)
+                {
+                    UsersFound = UsersFound.Where(user => user.Country == SearchedUser.Country);
+                }
+            }
+
+            TempData["UsersFound"] = UsersFound;
+
+            return RedirectToAction("Index", "User");
+        }
+
 
 
         // Get the user entity by id
@@ -140,7 +182,7 @@ namespace Amatzia.Controllers
 
         }
 
-        private List<string> GetCountries()
+        private static List<string> GetCountries()
         {
             List<string> lstCountries = new List<string>();
 
