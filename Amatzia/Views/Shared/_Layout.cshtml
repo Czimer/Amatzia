@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amatzia's Recepies</title>
+    <title>Amatzia's Recepie</title>
     @Styles.Render("~/Content/css")
 </head>
 <body>
@@ -15,12 +15,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Amatzia's Recepies", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Amatzia's Recepie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Users", "Index", "User")</li>
-                    <li>@Html.ActionLink("Recepies", "About", "Home")</li>
+                    <li>@Html.ActionLink("Recepie", "Index", "Recepie")</li>
                 </ul>
             </div>
         </div>

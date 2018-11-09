@@ -152,6 +152,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RecepieController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,6 +171,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AmatziaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Recepie.cs">
+      <DependentUpon>AmatziaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>AmatziaModel.tt</DependentUpon>
@@ -191,6 +195,7 @@
       <LastGenOutput>AmatziaModel.Context.cs</LastGenOutput>
       <DependentUpon>AmatziaModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\AmatziaModel.edmx.sql" />
     <Content Include="Models\AmatziaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AmatziaModel.edmx</DependentUpon>
@@ -219,7 +224,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -240,6 +247,10 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Recepie\Index.cshtml">
+      <BrowseToURL>~/Recepie/Index</BrowseToURL>
+    </Content>
+    <Content Include="Views\Recepie\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,7 +285,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>46507</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
