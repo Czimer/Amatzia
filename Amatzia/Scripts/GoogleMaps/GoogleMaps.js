@@ -6,7 +6,7 @@
     geocoder.geocode({
         'address': $('#countryValue')[0].innerText
     }, function (results, status) {
-        if (status == 'OK') {
+        if (status === 'OK') {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,

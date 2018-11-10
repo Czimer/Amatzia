@@ -5,13 +5,10 @@ using System.Web;
 
 namespace Amatzia.Utils
 {
-    public class Enums
+    public enum Gender
     {
-        public enum Gender
-        {
-            Male,
-            Female,
-            Other
-        }
+        Male,
+        Female,
+        Other
     }
 }
