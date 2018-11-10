@@ -5,31 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Content/Recipes.css")
-@Styles.Render("~/Content/Bootstrap.css")
+@Styles.Render("~/Content/Recipes.css", "~/Content/Bootstrap.css")
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div>
-        <br />
-        <a href="@Url.Action("Create", "Recepie")">Add a recepie</a>
-    </div>
-    <br />
+    
 
-    <table id="modelTable" class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(recepie => recepie.Name)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.Ingredients)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.Instructions)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.Difficulty)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.UserId)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.duration)</th>
-            <th>@Html.DisplayNameFor(recepie => recepie.UploadDate)</th>
-            <th></th>
-        </tr>
     <div class="loginDiv">
         <div class="loginForm form-horizontal">
             <h1>@ViewBag.Title</h1>
@@ -40,7 +24,8 @@
                 {
                     foreach (var recepie in Model)
                     {
-                        <div>
+                        <a class="link" href="@Url.Action("Details", "Recepie")">
+                            <div class="recipe">
                                 <label>
                                     @Html.DisplayFor(modelItem => recepie.Name)
                                     by
@@ -52,12 +37,15 @@
                                 <br />
                                 <label>Difficulty:</label>
                                 @Html.DisplayFor(modelItem => recepie.Difficulty)
-                        </div>
+                            </div>
+                        </a>
                     }
                 }
+                <button class="fab">
+                    <a class="link" href="@Url.Action("Create", "Recepie")">+</a>
+                </button>
             </div>
             <hr />
         </div>
     </div>
-
 }

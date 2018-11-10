@@ -33,8 +33,10 @@ body {
     border: none;
     width: 100%;
     padding: 20px;
-    border-bottom-left-radius:13px;
-    border-bottom-right-radius:13px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+    padding-bottom: 45px;
+    font-size: 20px;
 }
 
 h1 {

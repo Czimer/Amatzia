@@ -5,68 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/RecipeDetails.css", 
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
 
-    <div id="modelDetails">
-        <h4>recepie</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Name):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Name):
-            </dd>
+        <h1>Recipe details</h1>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Ingredients)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Ingredients):
-            </dd>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Instructions):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Instructions):
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Difficulty)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Difficulty)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.UploadDate):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.UploadDate):
-            </dd>
-           
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.duration)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.duration)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.UserId):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.UserId):
-            </dd>
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { recepieId = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+            <div id="modelDetails">
+                <hr />
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.Name):
+                        </span>
+                        @Html.DisplayFor(recepie => recepie.Name)
+                    </div>
+                    
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.Ingredients):
+                        </span>
+                            @Html.DisplayFor(recepie => recepie.Ingredients)
+                    </div>
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.Instructions):
+                            </span>
+                            @Html.DisplayFor(recepie => recepie.Instructions)
+                    </div>
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.Difficulty)
+                            </span>
+                            @Html.DisplayFor(recepie => recepie.Difficulty)
+                    </div>
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.UploadDate):
+                            </span>
+                            @Html.DisplayFor(recepie => recepie.UploadDate)
+                    </div>
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.duration):
+                            </span>
+                            @Html.DisplayFor(recepie => recepie.duration)
+                    </div>
+                    <div>
+                        <span class="title">
+                            @Html.DisplayNameFor(recepie => recepie.UserId):
+                            </span>
+                            @Html.DisplayFor(recepie => recepie.UserId)
+                    </div>
+            </div>
+            <p>
+                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "Recepie")'">
+                    <i class="fa fa-arrow-left icons"></i>
+                </button>
+                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Edit", "Edit", new { recepieId = Model.Id })'">
+                    <i class="fa fa-edit icons"></i>
+                </button>
+</p>
+        }
+</div>
+</div>

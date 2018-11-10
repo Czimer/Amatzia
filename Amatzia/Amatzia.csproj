@@ -193,9 +193,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CreateAccount.css" />
+    <Content Include="Content\UserDelete.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\RecipeDetails.css" />
     <Content Include="Content\Recipes.css" />
     <Content Include="Content\Register.css" />
+    <Content Include="Content\UserDetails.css" />
+    <Content Include="Content\UserEdit.css" />
+    <Content Include="Content\Users.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -271,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

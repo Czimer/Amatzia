@@ -1,20 +1,23 @@
-﻿body {
+﻿@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+
+body {
     background-image: url(/Images/cooking-wallpaper.jpg);
     background-position: inherit;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
+    font-family: "Alef Hebrew";
 }
+
 .loginDiv {
-    width: 100%;
+    width: 50%;
     height: 50%;
+    margin-left: 25%;
     margin-top: 15%;
     border: 1px solid;
     border-color: lightgray;
     border-radius: 13px;
     background-color: rgba(255, 255, 255, 0.9);
-    color: #9e9b9b;
-    font-size: 20px;
 }
 
 .loginForm {
@@ -28,10 +31,14 @@
 
 .btn-login {
     border: none;
-    width: 100%;
-    padding: 20px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
+    width: 26%;
+    padding: 16px;
+    border-radius: 25px;
+}
+
+.icons {
+    font-size: 20px !important;
+    color: gray;
 }
 
 h1 {
@@ -39,11 +46,21 @@ h1 {
     text-align: center;
 }
 
-h3 {
-    font-weight: bold;
+p {
+    margin: 0 0 10px;
+    padding-left: 136px;
+}
+
+#modelDetails {
+    padding-left:52px;
+    color:gray;
+    font-size: 20px;
 }
 
 hr {
     border-color: #d8d1d1;
-    margin-bottom: 0px;
+}
+
+.title {
+    font-weight:bold;
 }
