@@ -11,44 +11,17 @@ namespace Amatzia.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
-    using static Amatzia.Utils.Enums;
-
+    
     public partial class User
     {
-        public int UserId { get; set; }
-
-        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
-        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Of Birth")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
-
         public string Gender { get; set; }
-
         public string Country { get; set; }
-
-        [Required]
-        [Display(Name = "User Name")]
         public string UserName { get; set; }
-
-        [Required]
         public string Password { get; set; }
-
-        public Boolean IsManager { get; set; }
-    }
-
-    public enum Gender
-    {
-        Male,
-        Female,
-        Other
+        public int UserId { get; set; }
+        public bool IsManager { get; set; }
     }
 }

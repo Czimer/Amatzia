@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/09/2018 18:40:45
+-- Date Created: 11/09/2018 23:38:29
 -- Generated from EDMX file: C:\Users\Moshe Katz\Desktop\yarin\Amatzia\Amatzia\Models\AmatziaModel.edmx
 -- --------------------------------------------------
 
@@ -60,6 +60,16 @@ CREATE TABLE [dbo].[Recepies] (
 );
 GO
 
+-- Creating table 'Comments'
+CREATE TABLE [dbo].[Comments] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RecepieId] int  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NULL,
+    [UserId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -73,6 +83,12 @@ GO
 -- Creating primary key on [Id] in table 'Recepies'
 ALTER TABLE [dbo].[Recepies]
 ADD CONSTRAINT [PK_Recepies]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [PK_Comments]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

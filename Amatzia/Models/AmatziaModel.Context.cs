@@ -29,6 +29,7 @@ namespace Amatzia.Models
     
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Recepie> Recepies { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     
         public virtual int GetNextSequenceValueUser()
         {

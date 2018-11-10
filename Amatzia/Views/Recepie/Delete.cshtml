@@ -1,0 +1,74 @@
+﻿@model Amatzia.Models.Recepie
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this recepie?</h3>
+<div>
+    <h4>Recepie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Ingredients)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Ingredients)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Instructions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Instructions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Difficulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Difficulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(recepie => recepie.UserId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-warning" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

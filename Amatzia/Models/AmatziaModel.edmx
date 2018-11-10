@@ -8,6 +8,7 @@
   <EntityContainer Name="AmatziaModelStoreContainer">
     <EntitySet Name="Users" EntityType="AmatziaModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Recepies" EntityType="AmatziaModel.Store.Recepies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="AmatziaModel.Store.Comments" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="Users">
     <Key>
@@ -36,6 +37,16 @@
     <Property Name="UploadDate" Type="datetime" Nullable="false" />
     <Property Name="duration" Type="int" Nullable="true" />
   </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecepieId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -58,6 +69,7 @@
           <EntitySet Name="Users" EntityType="Self.User" />
           <FunctionImport Name="GetNextSequenceValueUser" />
           <EntitySet Name="Recepies" EntityType="AmatziaModel.Recepie" />
+          <EntitySet Name="Comments" EntityType="AmatziaModel.Comment" />
         </EntityContainer>
         <EntityType Name="Recepie">
           <Key>
@@ -71,6 +83,16 @@
           <Property Name="Difficulty" Type="Int32" Nullable="true" />
           <Property Name="UploadDate" Type="DateTime" Nullable="false" />
           <Property Name="duration" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecepieId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -104,6 +126,17 @@
           <ScalarProperty Name="Difficulty" ColumnName="Difficulty" />
           <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
           <ScalarProperty Name="duration" ColumnName="duration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(AmatziaModel.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RecepieId" ColumnName="RecepieId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

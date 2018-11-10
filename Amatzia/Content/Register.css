@@ -1,0 +1,67 @@
+﻿@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+
+body {
+    height: 100%;
+    background-image: url(/Images/cooking-wallpaper.jpg);
+    background-position: inherit;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mainDiv {
+    width: 50%;
+    height: 70%;
+    margin-left: 10%;
+    margin-top: 7%;
+    border: 1px solid;
+    border-color: lightgray;
+    font-family: "Alef Hebrew";
+    position: fixed;
+    overflow-y: scroll;
+    border-radius: 13px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.mainForm {
+    width: 80%;
+    height: 80%;
+    margin-left: 8%;
+    margin-top: 3%;
+}
+
+.submitButton {
+    text-align: center;
+}
+
+h1 {
+    color: gray;
+    text-align: center;
+}
+
+hr {
+    border-color: #d8d1d1;
+    margin-bottom: 0px;
+}
+
+
+.btn-login {
+    border: none;
+    width: 26%;
+    padding: 16px;
+    border-radius: 25px;
+}
+
+select#Gender {
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}

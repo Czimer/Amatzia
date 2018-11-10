@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_CleanLayout.cshtml";
 }
 
-@Styles.Render("~/Content/CreateAccount.css")
+@Styles.Render("~/Content/Register.css")
 
 @using (Html.BeginForm())
 {
@@ -16,7 +16,7 @@
 
     <div class="mainDiv">
         <div class="form-horizontal mainForm">
-            <h1>Create your account</h1>
+            <h1>Create Account</h1>
             <hr />
             <div>
                 @Html.Label("", (string)ViewBag.Message)
@@ -24,33 +24,30 @@
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.FirstName) } })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control register col-md-6", placeholder = @Html.DisplayNameFor(model => model.FirstName) } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger col-md-6" })
             </div>
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.LastName) } })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control register col-md-6", placeholder = @Html.DisplayNameFor(model => model.LastName) } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger col-md-6" })
             </div>
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.DateOfBirth) } })
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control register col-md-6", placeholder = @Html.DisplayNameFor(model => model.DateOfBirth) } })
                 @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger col-md-6" })
             </div>
 
             <br />
             <div class="form-group">
-                @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Gender) } })
+                @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "gender col-md-6", placeholder = @Html.DisplayNameFor(model => model.Gender) } })
                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger col-md-6" })
             </div>
 
             <br />
-            <div class="form-group">
-                @Html.DropDownList("Country", new SelectList((List<string>)TempData["Countries"]), new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Gender) } })
-                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger col-md-6" })
-            </div>
+            
 
             <br />
             <div class="form-group">
@@ -60,13 +57,14 @@
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-md-6" })
             </div>
 
             <br />
             <div class="form-group submitButton">
-                <input type="submit" value="Create" class="btn-primary" />
+                <input type="submit" value="Create" class="btn-primary btn-login" />
+                <input type="button" value="Cancel" class="btn-danger btn-login"/>
             </div>
         </div>
     </div>

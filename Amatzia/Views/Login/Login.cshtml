@@ -26,23 +26,20 @@
                 @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
                 @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger col-md-6" })
             </div>
-        
+
             <br />
             <div>
                 @Html.Label("", (string)ViewBag.Message)
             </div>
-            <br />
-            <div class="submitButton">
-                <input type="submit" value="Login" class="btn-primary" />
-            </div>
-
-            <div>
-                <br />
-                <a href="@Url.Action("Create", "User")">New to Amatzia? Sign Up</a>
-            </div>
-            <br />
-    }   
-
+        }
+        <div class="text-center">
+            <a href="@Url.Action("Create", "User")">New to Amatzia? Sign Up</a>
+        </div>
+        <br />
+    </div>
+    <hr />
+    <div class="submitButton">
+        <input type="submit" value="Login" class="btn-primary btn-login" />
     </div>
 </div>
 
