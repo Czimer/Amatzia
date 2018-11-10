@@ -1,7 +1,22 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model Amatzia.Models.User
 
-<p>Use this area to provide additional information.</p>
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/About.css")
+
+
+
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+        <h1>@ViewBag.Title</h1>
+            <div>
+                @Html.Label("", (string)ViewBag.Message)
+            </div>
+        <br />
+        <div>
+            @Html.Label("",(string)ViewBag.MessageFoodie)
+        </div>
+    </div>
+

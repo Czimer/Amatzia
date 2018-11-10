@@ -1,7 +1,11 @@
 ﻿@import url(http://fonts.googleapis.com/earlyaccess/alefhebrew.css);
 
 body {
-    background-color: #e6ecf0;
+    background-image: url(/Images/cooking-wallpaper.jpg);
+    background-position: inherit;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
     font-family: "Alef Hebrew";
 }
 
@@ -12,17 +16,33 @@ body {
     margin-top: 15%;
     border: 1px solid;
     border-color: lightgray;
-    border-radius: 1px;
-    background-color: white;
+    border-radius: 13px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .loginForm {
     width: 80%;
-    height: 80%;
-    margin-left: 8%;
-    margin-top: 3%;
+    margin-left: 10%;
 }
 
 .submitButton {
     text-align: center;
+}
+
+.btn-login {
+    border: none;
+    width: 100%;
+    padding: 20px;
+    border-bottom-left-radius:13px;
+    border-bottom-right-radius:13px;
+}
+
+h1 {
+    color: gray;
+    text-align: center;
+}
+
+hr {
+    border-color: #d8d1d1;
+    margin-bottom:0px;
 }
