@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amatzia.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,15 @@ namespace Amatzia.Controllers
 {
     public class HomeController : Controller
     {
+        // delete
+        private AmatziaEntities AmatziaDB = new AmatziaEntities();
+
         public ActionResult Index()
         {
+            // delete
+            User EnterUser = AmatziaDB.Users.Where(user => user.UserName == "yarin").FirstOrDefault();
+            Session["LoggedUser"] = EnterUser;
+
             return View();
         }
 

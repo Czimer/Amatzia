@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Amatzia.Models;
 
@@ -46,14 +45,21 @@ namespace Amatzia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,Name,Ingredients,Instructions,Difficulty,UploadDate,duration")] Recepie NewRecepie)
+        public ActionResult Create([Bind(Include = "Name,Ingredients,Instructions,Difficulty,UploadDate,duration")] Recepie NewRecepie)
         {
             if (ModelState.IsValid)
             {
+                // Get the logged user
+                User currUser = Session["LoggedUser"] as User;
+                NewRecepie.UserId = currUser.UserId;
+                NewRecepie.Id = new Random().Next(1,1000);
+                NewRecepie.User = currUser;
                 AmatziaDB.Recepies.Add(NewRecepie);
+                AmatziaDB.Users.Attach(NewRecepie.User);
+                AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
                 AmatziaDB.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Blog");
                 
             }
 
@@ -83,10 +89,10 @@ namespace Amatzia.Controllers
            DateTime? UploadDate,
            string Name,
            string Ingredients,
-           int Difficulty,
-           int duration)
+           int? Difficulty,
+           int? duration)
         {
-            IEnumerable<Recepie> FilteredRecepies = AmatziaDB.Recepies.ToList();
+            IEnumerable<Recepie> FilteredRecepies = AmatziaDB.Recepies.Include("Comments").Include("User").ToList();
 
             if (UploadDate != null)
             {
@@ -114,9 +120,9 @@ namespace Amatzia.Controllers
                 FilteredRecepies = FilteredRecepies.Where(recepie => recepie.duration == duration);
             }
 
-            TempData["Recepies"] = FilteredRecepies;
+            TempData["Recepie"] = FilteredRecepies;
 
-            return RedirectToAction("Index", "Recepie");
+            return RedirectToAction("Index", "Post");
         }
 
 
@@ -149,8 +155,6 @@ namespace Amatzia.Controllers
 
 
         // POST: Recepie/Delete/[id]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int RecepieId)
         {
             // Remove the recepie from DB
