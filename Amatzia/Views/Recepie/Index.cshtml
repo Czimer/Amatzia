@@ -60,10 +60,13 @@
                     <td>
                         @Html.ActionLink("| ", "Details", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-info-sign" })
                         @Html.ActionLink("| ", "Edit", new { RecepieId = recepie.Id }, new { @class = "glyphicon glyphicon-edit" });
-
+                        @Html.ActionLink("Delete", "Delete", new { RecepieId = recepie.Id })
+                        @Html.ActionLink("Manage Comments", "Index", "Comment", new { id = recepie.Id }, null)
                     </td>
                 </tr>
             }
         }
     </table>
+
+    
 }

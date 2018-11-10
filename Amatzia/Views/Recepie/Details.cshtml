@@ -11,62 +11,96 @@
 {
     @Html.AntiForgeryToken()
 
-    <div id="modelDetails">
-        <h4>recepie</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Name):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Name):
-            </dd>
+<div id="modelDetails">
+    <h4>recepie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Name):
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Name):
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Ingredients)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Ingredients):
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Ingredients)
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Ingredients):
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Instructions):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Instructions):
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Instructions):
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Instructions):
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.Difficulty)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.Difficulty)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.Difficulty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.Difficulty)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.UploadDate):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.UploadDate):
-            </dd>
-           
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.duration)
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.duration)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.UploadDate):
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.UploadDate):
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(recepie => recepie.UserId):
-            </dt>
-            <dd>
-                @Html.DisplayFor(recepie => recepie.UserId):
-            </dd>
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { recepieId = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.duration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(recepie => recepie.User.UserName):
+        </dt>
+        <dd>
+            @Html.DisplayFor(recepie => recepie.User.UserName):
+        </dd>
+    </dl>
+
+    @if (Model.Comments != null && Model.Comments.Count > 0)
+    {
+        <section id="comments">
+            <h3>Comments</h3>
+            @foreach (var comment in Model.Comments)
+            {
+                <article>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => comment.Title)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => comment.Title)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => comment.UserId)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => comment.UserId)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => comment.Content)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => comment.Content)
+                        </dd>
+                    </dl>
+                </article>
+            }
+        </section>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { recepieId = Model.Id }) |
+    @Html.ActionLink("Back to Home Page", "Index", "Post")
+</p>
 }

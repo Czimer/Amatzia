@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Amatzia.Models.Recepie>
+
+    <section id="search">
+        @using (Html.BeginForm("Search", "Recepie", FormMethod.Get))
+        {
+            <div>
+                <span>
+                    <label>Upload Date:</label>
+                    <input type="date" name="UploadDate" />
+                </span>
+            </div>
+
+            <div>
+                <span>
+                    <label>Name:</label>
+                    <input type="text" name="Name" />
+                </span>
+                <span>
+                    <label>Ingredients:</label>
+                    <input type="text" name="Ingredients" />
+                </span>
+            </div>
+            <div>
+                <span>
+                    <label>Difficulty</label>
+                    <input type="number" name="Difficulty" />
+                </span>
+                <span>
+                    <label>Duration</label>
+                    <input type="number" name="duration" />
+                </span>
+            </div>
+            <div>
+                <input type="submit" name="Search" value="חפש" />
+            </div>
+        }
+    </section>
+    <div id="mainContent">
+        <p>
+            @Html.ActionLink("Add A New Recepie", "Create", "Recepie")
+        </p>
+        @if (Model.Count() == 0)
+        {
+            <div id="noData">
+                There are no recepies
+            </div>
+        }
+        @foreach (var recepie in Model)
+        {
+            <section>
+                <article>
+                    <header>
+                        <h2>
+                            <a href="@Url.Action("Details", "Recepie", new { RecepieId = recepie.Id })">
+                                @recepie.Name
+                            </a>
+                        </h2>
+                        <p>
+                            Uploaded at
+                            <time datetime="@(recepie.UploadDate)">
+                                @Html.DisplayFor(modelItem => recepie.UploadDate)
+                            </time>
+                            by
+                            @Html.DisplayFor(modelItem => recepie.User.UserName)
+                            -
+                            <a href="#comments">
+                                @{int countOfComments = recepie.Comments == null ? 0 : recepie.Comments.Count();}
+                                @Html.DisplayFor(modelItem => countOfComments) comments
+                            </a>
+                        </p>
+                    </header>
+                    <div>
+                        <p>
+                            @Html.DisplayFor(modelItem => recepie.Instructions)
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            using (Html.BeginForm("Create", "Comment", new { id = recepie.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                var comment = new Amatzia.Models.Comment();
+
+                <h3>Post a comment</h3>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p>
+                    @Html.LabelFor(model => comment.Title, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.EditorFor(model => comment.Title, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+                    @Html.ValidationMessageFor(model => comment.Title, "", new { @class = "text-danger" })
+                </p>
+                <p>
+                    @Html.LabelFor(model => comment.Content, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.EditorFor(model => comment.Content, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+                    @Html.ValidationMessageFor(model => comment.Content, "", new { @class = "text-danger" })
+                </p>
+                <p>
+                    <input type="submit" value="Post comment" class="btn btn-default" />
+                </p>
+            }
+        }
+    </div>
