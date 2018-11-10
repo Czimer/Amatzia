@@ -12,7 +12,6 @@ namespace Amatzia.Controllers
     public class LoginController : Controller
     {
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
-        
 
         // GET: Login
         public ActionResult Login()
@@ -36,7 +35,7 @@ namespace Amatzia.Controllers
                     // Set user is manager or not
                     GlobalVars.IsManager = EnterUser.IsManager ? true : false;
                     TempData["IsManager"] = GlobalVars.IsManager.ToString();
-
+                    Session["LoggedUser"] = EnterUser;
 
                     return RedirectToAction("Index", "Home");
                 }

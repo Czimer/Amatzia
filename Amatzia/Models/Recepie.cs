@@ -14,6 +14,12 @@ namespace Amatzia.Models
     
     public partial class Recepie
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Recepie()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+    
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
@@ -22,5 +28,9 @@ namespace Amatzia.Models
         public Nullable<int> Difficulty { get; set; }
         public System.DateTime UploadDate { get; set; }
         public Nullable<int> duration { get; set; }
+    
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

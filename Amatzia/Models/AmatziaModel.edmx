@@ -4,50 +4,98 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AmatziaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="AmatziaModelStoreContainer">
-    <EntitySet Name="Users" EntityType="AmatziaModel.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Recepies" EntityType="AmatziaModel.Store.Recepies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Comments" EntityType="AmatziaModel.Store.Comments" store:Type="Tables" Schema="dbo" />
-  </EntityContainer>
-  <EntityType Name="Users">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="FirstName" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="LastName" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="DateOfBirth" Type="datetime" Nullable="true" />
-    <Property Name="Gender" Type="varchar" Nullable="true" MaxLength="15" />
-    <Property Name="Country" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="IsManager" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Recepies">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Ingredients" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Difficulty" Type="int" Nullable="true" />
-    <Property Name="UploadDate" Type="datetime" Nullable="false" />
-    <Property Name="duration" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Comments">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RecepieId" Type="int" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="UserId" Type="int" Nullable="false" />
-  </EntityType>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="AmatziaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RecepieId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Content" Type="nchar" MaxLength="10" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recepies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ingredients" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Instructions" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Difficulty" Type="int" />
+          <Property Name="UploadDate" Type="datetime" Nullable="false" />
+          <Property Name="duration" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="10" />
+          <Property Name="LastName" Type="nchar" MaxLength="10" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" />
+          <Property Name="Country" Type="nchar" MaxLength="10" />
+          <Property Name="UserName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsManager" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comments_Recepie">
+          <End Role="Recepies" Type="Self.Recepies" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="RecepieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recepies_Userd">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Recepies" Type="Self.Recepies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Recepies">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AmatziaModelStoreContainer">
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recepies" EntityType="Self.Recepies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_Recepie" Association="Self.FK_Comments_Recepie">
+            <End Role="Recepies" EntitySet="Recepies" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recepies_Userd" Association="Self.FK_Recepies_Userd">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Recepies" EntitySet="Recepies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AmatziaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -55,13 +103,13 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="IsManager" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -70,6 +118,18 @@
           <FunctionImport Name="GetNextSequenceValueUser" />
           <EntitySet Name="Recepies" EntityType="AmatziaModel.Recepie" />
           <EntitySet Name="Comments" EntityType="AmatziaModel.Comment" />
+          <AssociationSet Name="FK_Recepies_Userd" Association="AmatziaModel.FK_Recepies_Userd">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Recepie" EntitySet="Recepies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Recepie" Association="AmatziaModel.FK_Comments_Recepie">
+            <End Role="Recepie" EntitySet="Recepies" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_User" Association="AmatziaModel.FK_Comments_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Recepie">
           <Key>
@@ -77,12 +137,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Ingredients" Type="String" Nullable="false" />
-          <Property Name="Instructions" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Ingredients" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Instructions" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Difficulty" Type="Int32" Nullable="true" />
-          <Property Name="UploadDate" Type="DateTime" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="duration" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Recepies_Userd" FromRole="Recepie" ToRole="User" />
+          <NavigationProperty Name="Comments" Relationship="AmatziaModel.FK_Comments_Recepie" FromRole="Recepie" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -90,10 +152,48 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RecepieId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Content" Type="String" Nullable="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Content" Type="String" Nullable="true" MaxLength="10" Unicode="true" FixedLength="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recepie" Relationship="AmatziaModel.FK_Comments_Recepie" FromRole="Comment" ToRole="Recepie" />
+          <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Comments_User" FromRole="Comment" ToRole="User" />
         </EntityType>
+        <Association Name="FK_Recepies_Userd">
+          <End Type="AmatziaModel.User" Role="User" Multiplicity="1" />
+          <End Type="AmatziaModel.Recepie" Role="Recepie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Recepie">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Recepie">
+          <End Type="AmatziaModel.Recepie" Role="Recepie" Multiplicity="1" />
+          <End Type="AmatziaModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RecepieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_User">
+          <End Type="AmatziaModel.User" Role="User" Multiplicity="1" />
+          <End Type="AmatziaModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
