@@ -69,3 +69,11 @@ hr {
 .title {
     font-weight: bold;
 }
+
+.com-del {
+    margin-left: 160px;
+}
+
+.btn-del {
+    width: 66px;
+}

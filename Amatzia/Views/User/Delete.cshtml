@@ -63,12 +63,8 @@
                 </div>
                 <hr />
                 <p>
-                    <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "User")'">
-                        <i class="fa fa-arrow-left icons"></i>
-                    </button>
-                    <button class="btn-link btn-login" type="submit" value="Delete">
-                        <i class="fa fa-trash icons"></i>
-                    </button>
+                    @Html.ActionLink(".", "Index", new { UserId = Model.UserId }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
+                    <input type="submit" value="Delete" class="btn btn-danger btn-del" />
                 </p>
                <br />
             </div>

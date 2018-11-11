@@ -1,44 +1,50 @@
 ﻿@model Amatzia.Models.Comment
 
-@Styles.Render("~/Styles/Model.css")
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div id="mainContent">
-    <h2>Edit</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@Styles.Render("~/Content/UserEdit.css",
+               "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+
+<div class="mainDiv">
+    <div class="login-form mainForm">
+        <h1>Edit comment</h1>
+        <hr />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Comment</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(comment => comment.Id)
             @Html.HiddenFor(comment => comment.RecepieId)
 
             <div class="form-group">
-                @Html.LabelFor(comment => comment.Title, htmlAttributes: new { @class = "control-label col-md-4" })
-                <span class="col-md-8">
+                @Html.LabelFor(comment => comment.Title, htmlAttributes: new { @class = "title col-md-2" })
+                <span class="col-md-10">
                     @Html.EditorFor(comment => comment.Title, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(comment => comment.Title, "", new { @class = "text-danger" })
                 </span>
-               
-                @Html.LabelFor(comment => comment.Content, htmlAttributes: new { @class = "control-label col-md-4" })
-                <span class="col-md-8">
+
+                @Html.LabelFor(comment => comment.Content, htmlAttributes: new { @class = "title col-md-2" })
+                <span class="col-md-10">
                     @Html.EditorFor(comment => comment.Content, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(comment => comment.Content, "", new { @class = "text-danger" })
                 </span>
             </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
+            <p>
+                <div class="form-group submitButton">
+                    @Html.ActionLink(".", "Index", new { Id = Model.Id }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
+                    <input type="submit" value="Save" class="btn-primary btn-login" />
+</p>
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+        }
+        
     </div>
-</div>
+    </div>

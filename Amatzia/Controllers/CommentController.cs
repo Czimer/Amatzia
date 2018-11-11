@@ -153,5 +153,24 @@ namespace Amatzia.Controllers
             AmatziaDB.SaveChanges();
             return RedirectToAction("Details", "Recepie");
         }
+
+        public void ml()
+        {
+            List<Models.Recepie> lstRecepies = new List<Recepie>();
+            var comments = AmatziaDB.Comments.ToList();
+            string comm = string.Empty;
+            foreach (var comment in comments)
+            {
+                comm = comm +" " + comment.Content;
+                if (comm != null)
+                {
+                    bool bIsRec = MLRecommended.IsRec(comm);
+                    if(bIsRec && !lstRecepies.Contains(AmatziaDB.Recepies.Find(comment.RecepieId)))
+                    {
+                        lstRecepies.Add(AmatziaDB.Recepies.Find(comment.RecepieId));
+                    }
+                }
+            }
+        }        
     }
 }
