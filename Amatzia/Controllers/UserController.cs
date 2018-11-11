@@ -204,17 +204,5 @@ namespace Amatzia.Controllers
             return (lstCountries);
         }
 
-        [HttpGet]
-        public ActionResult GetUsersByCountry()
-        {
-            var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new
-            {
-                country = group.Key,
-                count = group.Count()
-            }).AsEnumerable();
-
-            return Json(CountriesGroups, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

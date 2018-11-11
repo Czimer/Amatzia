@@ -2,9 +2,9 @@
     $.ajax(
         {
             type: 'GET',
-            url: 'User/GetUsersByCountry',
+            url: 'Stats/GetUsersByCountry',
             success: function (json) {
-                const svg = d3.select('svg');
+                const svg = d3.select('#barSvg');
                 const svgContainer = d3.select('#container');
 
                 const margin = 80;

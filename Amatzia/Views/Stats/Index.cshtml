@@ -10,13 +10,21 @@
 
 <div id='layout'>
     <div id='container'>
-        <svg />
+        <svg id="barSvg"/>
     </div>
 </div>
 
+<br />
 
-@Styles.Render("~/Content/Graphs/Barchart.css", "~/Content/Login.css")
+<div id='layout'>
+    <div id='container'>
+        <svg id="pieSvg" />
+    </div>
+</div>
+
+@Styles.Render("~/Content/Graphs/Barchart.css", "~/Content/Graphs/Piechart.css", "~/Content/Login.css")
 <script src='@Url.Content("~/Scripts/jquery-1.10.2.min.js")'></script>
 <script src='@Url.Content("~/Scripts/Graphs/d3.min.js")' type="text/javascript"></script>
 <script src='@Url.Content("~/Scripts/Graphs/Barchart.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/Scripts/Graphs/Piechart.js")' type="text/javascript"></script>
 
