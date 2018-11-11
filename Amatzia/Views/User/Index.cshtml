@@ -100,17 +100,13 @@
                             </td>
                             <td>
 
-                                <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Details", "User", new { UserId = user.UserId})'">
-                                    <i class="fa fa-info-circle icon"></i>
-                                </button>
+                                @Html.ActionLink("|", "Details", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-info-circle icons" })
+
                                 @if (UserIsManager)
                                 {
-                                    <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Edit", "User", new { UserId = user.UserId})'">
-                                        <i class="fa fa-edit icon"></i>
-                                    </button>
-                                    <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Delete", "User", new { UserId = user.UserId})'">
-                                        <i class="fa fa-trash icon"></i>
-                                    </button>
+                                    @Html.ActionLink("|", "Edit", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-edit icons" })
+                                    @Html.ActionLink("|", "Edit", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-trash icons" })
+
                                 }
 
                             </td>
