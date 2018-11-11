@@ -44,7 +44,6 @@
                 <div class="searchDiv">
                     @Html.LabelFor(user => searchUser.Gender, htmlAttributes: new { @class = "title col-md-2" })
                     <span class="col-md-4">
-                        @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "form-control" } })
                     </span>
                 </div>
             </div>
@@ -100,12 +99,18 @@
                                 @Html.DisplayFor(modelItem => user.Country)
                             </td>
                             <td>
-                                @Html.ActionLink("| ", "Details", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-info-sign" })
 
+                                <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Details", "User", new { UserId = user.UserId})'">
+                                    <i class="fa fa-info-circle icon"></i>
+                                </button>
                                 @if (UserIsManager)
                                 {
-                                    @Html.ActionLink("| ", "Edit", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-edit" });
-                                    @Html.ActionLink(" ", "Delete", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-trash" });
+                                    <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Edit", "User", new { UserId = user.UserId})'">
+                                        <i class="fa fa-edit icon"></i>
+                                    </button>
+                                    <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Delete", "User", new { UserId = user.UserId})'">
+                                        <i class="fa fa-trash icon"></i>
+                                    </button>
                                 }
 
                             </td>
