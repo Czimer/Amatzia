@@ -54,12 +54,6 @@
             </div>
 
             <br />
-            <div class="form-group">
-                @Html.EditorFor(recepie => recepie.UploadDate, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(recepie => recepie.UploadDate) } })
-                @Html.ValidationMessageFor(recepie => recepie.UploadDate, "", new { @class = "text-danger col-md-6" })
-            </div>
-
-            <br />
             <div class="form-group submitButton">
                 <input type="submit" value="Create" class="btn-primary btn-login" />
                 <input type="button" value="Cancel" class="btn-danger btn-login" />

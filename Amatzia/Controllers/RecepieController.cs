@@ -24,7 +24,7 @@ namespace Amatzia.Controllers
         // POST: Recepie/Edit/[id]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, UserId, Name, Ingredients, Instructions, Difficulty, UploadDate, duration")] Recepie currRecepie)
+        public ActionResult Edit([Bind(Include = "Id, UserId, Name, Ingredients, Instructions, UploadDate, Difficulty, duration")] Recepie currRecepie)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace Amatzia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Ingredients,Instructions,Difficulty,UploadDate,duration")] Recepie NewRecepie)
+        public ActionResult Create([Bind(Include = "Name,Ingredients,Instructions,Difficulty,duration")] Recepie NewRecepie)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +56,7 @@ namespace Amatzia.Controllers
                 User currUser = Session["LoggedUser"] as User;
                 NewRecepie.UserId = currUser.UserId;
                 NewRecepie.Id = new Random().Next(1,1000);
+                NewRecepie.UploadDate = DateTime.Now;
                 NewRecepie.User = currUser;
                 AmatziaDB.Recepies.Add(NewRecepie);
                 AmatziaDB.Users.Attach(NewRecepie.User);
