@@ -15,8 +15,8 @@ namespace Amatzia.Controllers
         public ActionResult Index()
         {
             // delete
-            User EnterUser = AmatziaDB.Users.Where(user => user.UserName == "yarin").FirstOrDefault();
-            Session["LoggedUser"] = EnterUser;
+            //User EnterUser = AmatziaDB.Users.Where(user => user.UserName == "yarin").FirstOrDefault();
+           // Session["LoggedUser"] = EnterUser;
 
             return View();
         }
