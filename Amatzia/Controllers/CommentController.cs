@@ -120,10 +120,11 @@ namespace Amatzia.Controllers
             {
                 AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
                 AmatziaDB.Entry(recepie).State = System.Data.Entity.EntityState.Modified;
+                AmatziaDB.Entry(comment).State = System.Data.Entity.EntityState.Modified;
                 AmatziaDB.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RecepieId = new SelectList(AmatziaDB.Recepies, "Id", "Title", comment.RecepieId);
+            ViewBag.RecepieId = new SelectList(AmatziaDB.Recepies, "Id", "Name", comment.RecepieId);
             return View(comment);
         }
 
@@ -150,7 +151,7 @@ namespace Amatzia.Controllers
             Comment comment = AmatziaDB.Comments.Find(id);
             AmatziaDB.Comments.Remove(comment);
             AmatziaDB.SaveChanges();
-            return RedirectToAction("Index", "Recepie");
+            return RedirectToAction("Details", "Recepie");
         }
     }
 }
