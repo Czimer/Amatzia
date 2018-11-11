@@ -154,23 +154,56 @@ namespace Amatzia.Controllers
             return RedirectToAction("Details", "Recepie");
         }
 
-        public void ml()
+        public List<Models.Recepie> GetRecommended()
         {
             List<Models.Recepie> lstRecepies = new List<Recepie>();
-            var comments = AmatziaDB.Comments.ToList();
-            string comm = string.Empty;
-            foreach (var comment in comments)
+            var recipe = AmatziaDB.Recepies.ToList();
+            foreach (var rcp in recipe)
             {
-                comm = comm +" " + comment.Content;
+                //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
+                var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
+                string comm = string.Empty;
+                foreach (var comment in comments)
+                {
+                    //comm = comm + " " + comment;
+                    comm = comm + " " + comment.Content;                   
+                }
                 if (comm != null)
                 {
                     bool bIsRec = MLRecommended.IsRec(comm);
-                    if(bIsRec && !lstRecepies.Contains(AmatziaDB.Recepies.Find(comment.RecepieId)))
+                     if (bIsRec && !lstRecepies.Contains(rcp))
                     {
-                        lstRecepies.Add(AmatziaDB.Recepies.Find(comment.RecepieId));
+                        lstRecepies.Add(rcp);
                     }
                 }
             }
-        }        
+            return lstRecepies;
+        }
+
+        public List<Models.Recepie> GetUnRecommended()
+        {
+            List<Models.Recepie> lstRecepies = new List<Recepie>();
+            var recipe = AmatziaDB.Recepies.ToList();
+            foreach (var rcp in recipe)
+            {
+                //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
+                var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
+                string comm = string.Empty;
+                foreach (var comment in comments)
+                {
+                    //comm = comm + " " + comment;
+                    comm = comm + " " + comment.Content;
+                }
+                if (comm != null)
+                {
+                    bool bIsRec = MLRecommended.IsRec(comm);
+                    if (!bIsRec && !lstRecepies.Contains(rcp))
+                    {
+                        lstRecepies.Add(rcp);
+                    }
+                }
+            }
+            return lstRecepies;
+        }
     }
 }
