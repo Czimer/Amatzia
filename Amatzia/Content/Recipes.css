@@ -105,3 +105,12 @@ table {
 .btn-actions {
     width: fit-content;
 }
+
+.icons {
+    font-size: 20px !important;
+}
+
+.icon {
+    font-size: 20px !important;
+    margin-left: 353px;
+}

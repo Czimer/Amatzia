@@ -1,48 +1,48 @@
 ﻿@model Amatzia.Models.Comment
 
-<div id="mainContent">
-    <h2>Details</h2>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <div id="modelDetails">
-        <h4>Comment</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(comment => comment.Recepie.Name)
-            </dt>
+@Styles.Render("~/Content/RecipeDetails.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
-            <dd>
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+        <h1>Comment Details</h1>
+        <div id="modelDetails">
+            <hr />
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(comment => comment.Recepie.Name)
+                </span>
                 @Html.DisplayFor(comment => comment.Recepie.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(comment => comment.Title)
-            </dt>
-
-            <dd>
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(comment => comment.Title)
+                </span>
                 @Html.DisplayFor(comment => comment.Title)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(comment => comment.User.UserName)
-            </dt>
-
-            <dd>
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(comment => comment.User.UserName)
+                </span>
                 @Html.DisplayFor(comment => comment.User.UserName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(comment => comment.Content)
-            </dt>
-
-            <dd>
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(comment => comment.Content)
+                </span>
                 @Html.DisplayFor(comment => comment.Content)
-            </dd>
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink(".", "Index", new { CommentId = Model.Id }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
 
-        </dl>
+            @Html.ActionLink(".", "Edit", new { Id = Model.Id }, new { @class = "btn-link btn-actions fa fa-edit icons" })
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { Id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+        </div>
 </div>

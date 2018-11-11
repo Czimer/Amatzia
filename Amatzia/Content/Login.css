@@ -31,7 +31,8 @@ body {
 
 .btn-login {
     border: none;
-    width: 100%;
+    width: 125%;
+    margin-left: -56px;
     padding: 20px;
     border-bottom-left-radius: 13px;
     border-bottom-right-radius: 13px;

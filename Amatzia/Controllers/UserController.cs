@@ -207,12 +207,12 @@ namespace Amatzia.Controllers
         [HttpGet]
         public ActionResult GetUsersByCountry()
         {
-            var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new {
+            var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new
+            {
                 country = group.Key,
                 count = group.Count()
-            }).ToDictionary(col => col.country, col => col.count);
+            }).AsEnumerable();
 
-            
             return Json(CountriesGroups, JsonRequestBehavior.AllowGet);
         }
 

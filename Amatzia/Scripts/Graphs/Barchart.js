@@ -2,7 +2,7 @@
     $.ajax(
         {
             type: 'GET',
-            url: 'GetUsersByCountry',
+            url: 'User/GetUsersByCountry',
             success: function (json) {
                 const svg = d3.select('svg');
                 const svgContainer = d3.select('#container');
@@ -21,11 +21,7 @@
 
                 const yScale = d3.scaleLinear()
                     .range([height, 0])
-                    .domain([0, 100]);
-
-                // vertical grid lines
-                // const makeXLines = () => d3.axisBottom()
-                //   .scale(xScale)
+                    .domain([0, Math.max.apply(this, json.map(s => s.count)) + 10]);
 
                 const makeYLines = () => d3.axisLeft()
                     .scale(yScale)
@@ -36,15 +32,6 @@
 
                 chart.append('g')
                     .call(d3.axisLeft(yScale));
-
-                // vertical grid lines
-                // chart.append('g')
-                //   .attr('class', 'grid')
-                //   .attr('transform', `translate(0, ${height})`)
-                //   .call(makeXLines()
-                //     .tickSize(-height, 0, 0)
-                //     .tickFormat('')
-                //   )
 
                 chart.append('g')
                     .attr('class', 'grid')
@@ -61,22 +48,22 @@
                 barGroups
                     .append('rect')
                     .attr('class', 'bar')
-                    .attr('x', (g) => xScale(g.language))
-                    .attr('y', (g) => yScale(g.value))
-                    .attr('height', (g) => height - yScale(g.value))
+                    .attr('x', (g) => xScale(g.country))
+                    .attr('y', (g) => yScale(g.count))
+                    .attr('height', (g) => height - yScale(g.count))
                     .attr('width', xScale.bandwidth())
                     .on('mouseenter', function (actual, i) {
-                        d3.selectAll('.value')
+                        d3.selectAll('.count')
                             .attr('opacity', 0)
 
                         d3.select(this)
                             .transition()
                             .duration(300)
                             .attr('opacity', 0.6)
-                            .attr('x', (a) => xScale(a.language) - 5)
+                            .attr('x', (a) => xScale(a.country) - 5)
                             .attr('width', xScale.bandwidth() + 10)
 
-                        const y = yScale(actual.value)
+                        const y = yScale(actual.count)
 
                         line = chart.append('line')
                             .attr('id', 'limit')
@@ -87,12 +74,12 @@
 
                         barGroups.append('text')
                             .attr('class', 'divergence')
-                            .attr('x', (a) => xScale(a.language) + xScale.bandwidth() / 2)
-                            .attr('y', (a) => yScale(a.value) + 30)
+                            .attr('x', (a) => xScale(a.country) + xScale.bandwidth() / 2)
+                            .attr('y', (a) => yScale(a.count) + 30)
                             .attr('fill', 'white')
                             .attr('text-anchor', 'middle')
                             .text((a, idx) => {
-                                const divergence = (a.value - actual.value).toFixed(1)
+                                const divergence = (a.count - actual.count).toFixed(1)
 
                                 let text = ''
                                 if (divergence > 0) text += '+'
@@ -103,57 +90,48 @@
 
                     })
                     .on('mouseleave', function () {
-                        d3.selectAll('.value')
+                        d3.selectAll('.count')
                             .attr('opacity', 1)
 
                         d3.select(this)
                             .transition()
                             .duration(300)
                             .attr('opacity', 1)
-                            .attr('x', (a) => xScale(a.language))
+                            .attr('x', (a) => xScale(a.country))
                             .attr('width', xScale.bandwidth())
 
                         chart.selectAll('#limit').remove()
                         chart.selectAll('.divergence').remove()
                     })
 
-                barGroups
-                    .append('text')
+                barGroups.append('text')
                     .attr('class', 'value')
-                    .attr('x', (a) => xScale(a.language) + xScale.bandwidth() / 2)
-                    .attr('y', (a) => yScale(a.value) + 30)
+                    .attr('x', (a) => xScale(a.country) + xScale.bandwidth() / 2)
+                    .attr('y', (a) => yScale(a.count) + 30)
                     .attr('text-anchor', 'middle')
-                    .text((a) => `${a.value}%`)
+                    .text((a) => a.count)
 
-                svg
-                    .append('text')
+                svg.append('text')
                     .attr('class', 'label')
                     .attr('x', -(height / 2) - margin)
                     .attr('y', margin / 2.4)
                     .attr('transform', 'rotate(-90)')
                     .attr('text-anchor', 'middle')
-                    .text('Love meter (%)')
+                    .text('Number of users')
 
                 svg.append('text')
                     .attr('class', 'label')
                     .attr('x', width / 2 + margin)
                     .attr('y', height + margin * 1.7)
                     .attr('text-anchor', 'middle')
-                    .text('Languages')
+                    .text('Countries')
 
                 svg.append('text')
                     .attr('class', 'title')
                     .attr('x', width / 2 + margin)
                     .attr('y', 40)
                     .attr('text-anchor', 'middle')
-                    .text('Most loved programming languages in 2018')
-
-                svg.append('text')
-                    .attr('class', 'source')
-                    .attr('x', width - margin / 2)
-                    .attr('y', height + margin * 1.7)
-                    .attr('text-anchor', 'start')
-                    .text('Source: Stack Overflow, 2018')
+                    .text('Users & Countries')
 
             }
         });
