@@ -1,50 +1,57 @@
 ﻿@model Amatzia.Models.Comment
 
-<div id="mainContent">
-    <h2>Delete</h2>
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <h3>Are you sure you want to delete this?</h3>
-    <div id="modelDetails">
-        <h4>Comment</h4>
+
+@Styles.Render("~/Content/UserDelete.css",
+           "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+        <h1>Delete User</h1>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(comment => comment.RecepieId)
-            </dt>
-            <dd>
-                @Html.DisplayFor(comment => comment.RecepieId)
-            </dd>
+            <h3>Are you sure you want to delete this?</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <hr />
+                    <div id="modelDetails">
+                        <div>
+                            <span class="title">
+                                @Html.DisplayNameFor(comment => comment.RecepieId)
+                                </span>
+                                @Html.DisplayFor(comment => comment.RecepieId)
+                        </div>
+                        <div>
+                            <span class="title">
+                                @Html.DisplayNameFor(comment => comment.Title)
+                                </span>
+                                @Html.DisplayFor(comment => comment.Title)
+                        </div>
+                        <div>
+                            <span class="title">
+                                @Html.DisplayNameFor(comment => comment.User.UserName)
+                                </span>
+                                @Html.DisplayFor(comment => comment.User.UserName)
+                        </div>
+                        <div>
+                            <span class="title">
+                                @Html.DisplayNameFor(comment => comment.Content)
+                                </span>
+                                @Html.DisplayFor(comment => comment.Content)
+                        </div>
+                    </div>
 
-            <dt>
-                @Html.DisplayNameFor(comment => comment.Title)
-            </dt>
-            <dd>
-                @Html.DisplayFor(comment => comment.Title)
-            </dd>
 
-            <dt>
-                @Html.DisplayNameFor(comment => comment.User.UserName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(comment => comment.User.UserName)
-            </dd>
+                    <div class="form-actions no-color com-del">
 
-            <dt>
-                @Html.DisplayNameFor(comment => comment.Content)
-            </dt>
-            <dd>
-                @Html.DisplayFor(comment => comment.Content)
-            </dd>
-        </dl>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
-    </div>
-</div>
+                        @Html.ActionLink(".", "Index", new { RecepieId = Model.Id }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
+                        <input type="submit" value="Delete" class="btn btn-danger btn-del" />
+                    </div>
+                }
+        </div>

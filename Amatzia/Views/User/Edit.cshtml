@@ -83,11 +83,9 @@
                 </div>
                 <p>
                     <div class="form-group submitButton">
-                        <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "User")'">
-                            <i class="fa fa-arrow-left icons"></i>
-                        </button>
+                        @Html.ActionLink(".", "Index", new { UserId = Model.UserId }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
                         <input type="submit" value="Save" class="btn-primary btn-login" />
-                </p>
+</p>
             </div>
             }
 
