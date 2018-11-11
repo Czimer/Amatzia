@@ -12,8 +12,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    
-
     <div class="loginDiv">
         <div class="loginForm form-horizontal">
             <h1>@ViewBag.Title</h1>
@@ -29,7 +27,7 @@
                                 <label>
                                     @Html.DisplayFor(modelItem => recepie.Name)
                                     by
-                                    @Html.DisplayFor(modelItem => recepie.UserId)
+                                    @Html.DisplayFor(modelItem => recepie.User.UserName)
                                 </label>
                                 <br />
                                 <label>Duration:</label>
@@ -37,6 +35,11 @@
                                 <br />
                                 <label>Difficulty:</label>
                                 @Html.DisplayFor(modelItem => recepie.Difficulty)
+                                <div>
+                                @Html.ActionLink("Edit", "Edit", new { RecepieId = recepie.Id }) |
+                                @Html.ActionLink("Details", "Details", new { RecepieId = recepie.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { RecepieId = recepie.Id }) |
+                                @Html.ActionLink("Manage Comments", "Index", "Comment", new { id = recepie.Id }, null)</div>
                             </div>
                         </a>
                     }
@@ -48,5 +51,4 @@
             <hr />
         </div>
     </div>
-        </table>
 }

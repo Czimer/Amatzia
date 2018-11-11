@@ -28,6 +28,9 @@ namespace Amatzia.Controllers
         {
             if (ModelState.IsValid)
             {
+                User currUser = Session["LoggedUser"] as User;
+                currRecepie.User = currUser;
+                currRecepie.UserId = currUser.UserId;
                 AmatziaDB.Entry(currRecepie).State = EntityState.Modified;
                 AmatziaDB.SaveChanges();
                 return RedirectToAction("Index"); 
@@ -73,6 +76,7 @@ namespace Amatzia.Controllers
         }
 
         // GET: Recepie/Details/5
+        [HttpGet]
         public ActionResult Details(int? RecepieId)
         {
             if (RecepieId == null)
