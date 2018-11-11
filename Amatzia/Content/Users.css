@@ -66,3 +66,17 @@ h1 {
     border-radius: 74px;
     margin-left: 419px;
 }
+
+
+table {
+    color: gray;
+}
+
+.icon {
+    font-size: 20px !important;
+    color: gray;
+}
+
+.btn-actions {
+    width: fit-content;
+}

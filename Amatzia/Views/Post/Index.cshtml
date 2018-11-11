@@ -1,102 +1,132 @@
 ﻿@model IEnumerable<Amatzia.Models.Recepie>
 
-    <section id="search">
-        @using (Html.BeginForm("Search", "Recepie", FormMethod.Get))
-        {
-            <div>
-                <span>
-                    <label>Upload Date:</label>
-                    <input type="date" name="UploadDate" />
-                </span>
-            </div>
+@{
+    ViewBag.Title = "Recepies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-            <div>
-                <span>
-                    <label>Name:</label>
-                    <input type="text" name="Name" />
-                </span>
-                <span>
-                    <label>Ingredients:</label>
-                    <input type="text" name="Ingredients" />
-                </span>
-            </div>
-            <div>
-                <span>
-                    <label>Difficulty</label>
-                    <input type="number" name="Difficulty" />
-                </span>
-                <span>
-                    <label>Duration</label>
-                    <input type="number" name="duration" />
-                </span>
-            </div>
-            <div>
-                <input type="submit" name="Search" value="חפש" />
-            </div>
-        }
-    </section>
-    <div id="mainContent">
-        <p>
-            @Html.ActionLink("Add A New Recepie", "Create", "Recepie")
-        </p>
-        @if (Model.Count() == 0)
-        {
-            <div id="noData">
-                There are no recepies
-            </div>
-        }
-        @foreach (var recepie in Model)
-        {
-            <section>
-                <article>
-                    <header>
-                        <h2>
-                            <a href="@Url.Action("Details", "Recepie", new { RecepieId = recepie.Id })">
-                                @recepie.Name
-                            </a>
-                        </h2>
-                        <p>
-                            Uploaded at
-                            <time datetime="@(recepie.UploadDate)">
-                                @Html.DisplayFor(modelItem => recepie.UploadDate)
-                            </time>
-                            by
-                            @Html.DisplayFor(modelItem => recepie.User.UserName)
-                            -
-                            <a href="#comments">
-                                @{int countOfComments = recepie.Comments == null ? 0 : recepie.Comments.Count();}
-                                @Html.DisplayFor(modelItem => countOfComments) comments
-                            </a>
-                        </p>
-                    </header>
-                    <div>
-                        <p>
-                            @Html.DisplayFor(modelItem => recepie.Instructions)
-                        </p>
-                    </div>
-                </article>
-            </section>
+@Styles.Render("~/Content/Post.css", 
+    "~/Content/Bootstrap.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
-            using (Html.BeginForm("Create", "Comment", new { id = recepie.Id }, FormMethod.Post))
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+        <h1>@ViewBag.Title</h1>
+        <hr />
+        <section id="search">
+            @using (Html.BeginForm("Search", "Recepie", FormMethod.Get))
             {
-                @Html.AntiForgeryToken()
-                var comment = new Amatzia.Models.Comment();
+                <div class="searchDiv">
+                    @Html.Label("UploadDate", htmlAttributes: new { @class = "col-md-2 title" })
+                    <span class="col-md-4">
+                        @Html.Editor("UploadDate", new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                    @Html.Label("Name", htmlAttributes: new { @class = "col-md-2 title" })
+                    <span class="col-md-4">
+                        @Html.Editor("Name", new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                </div>
+                <br />
+                <hr />
+                <div class="searchDiv">
+                    @Html.Label("Difficulty", htmlAttributes: new { @class = "col-md-2 title" })
+                    <span class="col-md-4">
+                        @Html.Editor("Difficulty", new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                    @Html.Label("duration", htmlAttributes: new { @class = "col-md-2 title" })
+                    <span class="col-md-4">
+                        @Html.Editor("duration", new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                </div>
+                <br />
+                <hr />
+                <div class="searchDiv">
+                    @Html.Label("Ingredients", htmlAttributes: new { @class = "col-md-2 title" })
+                    <span class="col-md-4">
+                        @Html.Editor("Ingredients", new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
 
-                <h3>Post a comment</h3>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <p>
-                    @Html.LabelFor(model => comment.Title, htmlAttributes: new { @class = "control-label col-md-3" })
-                    @Html.EditorFor(model => comment.Title, new { htmlAttributes = new { @class = "form-control col-md-9" } })
-                    @Html.ValidationMessageFor(model => comment.Title, "", new { @class = "text-danger" })
-                </p>
-                <p>
-                    @Html.LabelFor(model => comment.Content, htmlAttributes: new { @class = "control-label col-md-3" })
-                    @Html.EditorFor(model => comment.Content, new { htmlAttributes = new { @class = "form-control col-md-9" } })
-                    @Html.ValidationMessageFor(model => comment.Content, "", new { @class = "text-danger" })
-                </p>
-                <p>
-                    <input type="submit" value="Post comment" class="btn btn-default" />
-                </p>
+                </div>
+                <br />
+                <hr />
+                <div class="searchDiv">
+                    <button class="btn-primary btn-login" name="search" type="submit">
+                        <i class="fa fa-search icons"> Search </i>
+                    </button>
+                </div>
+                <br />
             }
-        }
-    </div>
+        </section>
+        <div id="mainContent">
+            @if (Model.Count() == 0)
+            {
+                <div id="noData">
+                    There are no recepies
+                </div>
+            }
+            <div class="flex-container">
+            @foreach (var recepie in Model)
+            {
+                <div class="recipe">
+                    <section>
+                        <article>
+                            <header>
+                                <h2>
+                                    <a href="@Url.Action("Details", "Recepie", new { RecepieId = recepie.Id })">
+                                        @recepie.Name
+                                    </a>
+                                </h2>
+                                <p>
+                                    Uploaded at
+                                    <time datetime="@(recepie.UploadDate)">
+                                        @Html.DisplayFor(modelItem => recepie.UploadDate)
+                                    </time>
+                                    <br />
+                                    by
+                                    @Html.DisplayFor(modelItem => recepie.User.UserName)
+                                    -
+                                    <a href="#comments">
+                                        @{int countOfComments = recepie.Comments == null ? 0 : recepie.Comments.Count();}
+                                        @Html.DisplayFor(modelItem => countOfComments) comments
+                                    </a>
+                                </p>
+                            </header>
+                            <div>
+                                <p>
+                                    @Html.DisplayFor(modelItem => recepie.Instructions)
+                                </p>
+                            </div>
+                        </article>
+                    </section>
+
+                    @using (Html.BeginForm("Create", "Comment", new { id = recepie.Id }, FormMethod.Post))
+                    {
+                    @Html.AntiForgeryToken()
+                    var comment = new Amatzia.Models.Comment();
+
+                    <h3>Post a comment</h3>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <p>
+                        @Html.LabelFor(model => comment.Title, htmlAttributes: new { @class = "title col-md-3" })
+                        @Html.EditorFor(model => comment.Title, new { htmlAttributes = new { @class = "form-control-comment col-md-9" } })
+                        @Html.ValidationMessageFor(model => comment.Title, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        @Html.LabelFor(model => comment.Content, htmlAttributes: new { @class = "title col-md-3" })
+                        @Html.EditorFor(model => comment.Content, new { htmlAttributes = new { @class = "form-control-comment col-md-9" } })
+                        @Html.ValidationMessageFor(model => comment.Content, "", new { @class = "text-danger" })
+                    </p>
+                    <br />
+                    <hr />
+                    <p>
+                        <input type="submit" value="Post" class="btn-primary btn-login" />
+                    </p>
+                    }
+                </div>
+            }
+        </div>
+            <button class="fab">
+                <a class="link" href="@Url.Action("Create", "Recepie")">+</a>
+            </button>
+</div>
+</div>

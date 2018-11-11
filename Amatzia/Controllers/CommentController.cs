@@ -25,7 +25,7 @@ namespace Amatzia.Controllers
             return View(comments);
         }
 
-
+                                                                                                                                                                             
         // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
@@ -64,7 +64,6 @@ namespace Amatzia.Controllers
                 comment.Recepie = recepie;
                 comment.User = user;
                 comment.UserId = user.UserId;
-                comment.Id = new Random().Next(1, 1000);
 
                 AmatziaDB.Comments.Add(comment);
 
@@ -112,14 +111,15 @@ namespace Amatzia.Controllers
         {
             // Get the logged user
             User currUser = Session["LoggedUser"] as User;
-            Recepie recepie = AmatziaDB.Recepies.Find(comment.Id);
+            Recepie recepie = AmatziaDB.Recepies.Find(comment.RecepieId);
             comment.User = currUser;
             comment.UserId = currUser.UserId;
             comment.Recepie = recepie;
 
             if (ModelState.IsValid)
             {
-                AmatziaDB.Entry(comment).State = System.Data.Entity.EntityState.Modified;
+                AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
+                AmatziaDB.Entry(recepie).State = System.Data.Entity.EntityState.Modified;
                 AmatziaDB.SaveChanges();
                 return RedirectToAction("Index");
             }

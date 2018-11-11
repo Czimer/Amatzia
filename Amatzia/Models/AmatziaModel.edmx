@@ -32,7 +32,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="nchar" MaxLength="10" />
           <Property Name="LastName" Type="nchar" MaxLength="10" />
           <Property Name="DateOfBirth" Type="datetime" />
@@ -110,7 +110,7 @@
           <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IsManager" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="AmatziaEntities" annotation:LazyLoadingEnabled="true">
@@ -118,7 +118,7 @@
           <FunctionImport Name="GetNextSequenceValueUser" />
           <EntitySet Name="Recepies" EntityType="AmatziaModel.Recepie" />
           <EntitySet Name="Comments" EntityType="AmatziaModel.Comment" />
-          <AssociationSet Name="FK_Recepies_Userd" Association="AmatziaModel.FK_Recepies_Userd">
+          <AssociationSet Name="FK_Recepies_Userd" Association="AmatziaModel.FK_Recepies_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="Recepie" EntitySet="Recepies" />
           </AssociationSet>
@@ -143,7 +143,7 @@
           <Property Name="Difficulty" Type="Int32" Nullable="true" />
           <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="duration" Type="Int32" Nullable="true" />
-          <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Recepies_Userd" FromRole="Recepie" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Recepies_Users" FromRole="Recepie" ToRole="User" />
           <NavigationProperty Name="Comments" Relationship="AmatziaModel.FK_Comments_Recepie" FromRole="Recepie" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Comment">
@@ -158,7 +158,7 @@
           <NavigationProperty Name="Recepie" Relationship="AmatziaModel.FK_Comments_Recepie" FromRole="Comment" ToRole="Recepie" />
           <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Comments_User" FromRole="Comment" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Recepies_Userd">
+        <Association Name="FK_Recepies_Users">
           <End Type="AmatziaModel.User" Role="User" Multiplicity="1" />
           <End Type="AmatziaModel.Recepie" Role="Recepie" Multiplicity="*" />
           <ReferentialConstraint>

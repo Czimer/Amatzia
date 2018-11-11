@@ -159,8 +159,6 @@ namespace Amatzia.Controllers
             return RedirectToAction("Index", "User");
         }
 
-
-
         // Get the user entity by id
         private User GetUserById(int? UserId)
         {
@@ -204,6 +202,18 @@ namespace Amatzia.Controllers
             }
 
             return (lstCountries);
+        }
+
+        [HttpGet]
+        public ActionResult GetUsersByCountry()
+        {
+            var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new {
+                country = group.Key,
+                count = group.Count()
+            }).ToDictionary(col => col.country, col => col.count);
+
+            
+            return Json(CountriesGroups, JsonRequestBehavior.AllowGet);
         }
 
     }

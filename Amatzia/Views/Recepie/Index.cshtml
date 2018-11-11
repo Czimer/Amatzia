@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Content/Recipes.css", "~/Content/Bootstrap.css")
+@Styles.Render("~/Content/Recipes.css",
+               "~/Content/Bootstrap.css",
+               "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
 @using (Html.BeginForm())
 {
@@ -20,30 +22,50 @@
 
             <hr />
             <div class="flex-container">
-                @if (Model.Count() > 0)
-                {
-                    foreach (var recepie in Model)
+                <table id="modelTable" class="table">
+                    <tr>
+                        <th>@Html.DisplayNameFor(recepie => recepie.Name)</th>
+                        <th>@Html.DisplayNameFor(recepie => recepie.User.UserName)</th>
+                        <th>@Html.DisplayNameFor(recepie => recepie.duration)</th>
+                        <th>@Html.DisplayNameFor(recepie => recepie.Difficulty)</th>
+                        <th></th>
+                    </tr>
+
+                    @if (Model.Count() > 0)
                     {
-                        <a class="link" href="@Url.Action("Details", "Recepie")">
-                            <div class="recipe">
-                                <label>
+                        foreach (var recepie in Model)
+                        {
+                            <tr>
+                                <td>
                                     @Html.DisplayFor(modelItem => recepie.Name)
-                                    by
-                                    @Html.DisplayFor(modelItem => recepie.UserId)
-                                </label>
-                                <br />
-                                <label>Duration:</label>
-                                @Html.DisplayFor(modelItem => recepie.duration)
-                                <br />
-                                <label>Difficulty:</label>
-                                @Html.DisplayFor(modelItem => recepie.Difficulty)
-                            </div>
-                        </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.User.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.duration)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.Difficulty)
+                                </td>
+                                <td>
+                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Edit", "Recepie", new { RecepieId = recepie.Id })'">
+                                            <i class="fa fa-edit icons"></i>
+                                        </button>
+                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Details", "Recepie", new { RecepieId = recepie.Id })'">
+                                            <i class="fa fa-info-circle icons"></i>
+                                        </button>
+                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Delete", "Recepie", new { RecepieId = recepie.Id })'">
+                                            <i class="fa fa-trash icons"></i>
+                                        </button>
+                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Index", "Comment", new { RecepieId = recepie.Id })'">
+                                            <i class="fa fa-comments icons"></i>
+                                        </button>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-                <button class="fab">
-                    <a class="link" href="@Url.Action("Create", "Recepie")">+</a>
-                </button>
+                </table>
             </div>
             <hr />
         </div>

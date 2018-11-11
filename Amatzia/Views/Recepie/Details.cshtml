@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Content/RecipeDetails.css", 
+@Styles.Render("~/Content/RecipeDetails.css",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
 <div class="loginDiv">
@@ -17,94 +17,99 @@
         {
             @Html.AntiForgeryToken()
 
-<div id="modelDetails">
-    <h4>recepie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.Name):
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.Name):
-        </dd>
+        <div id="modelDetails">
+            <hr />
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.Name):
+                </span>
+                @Html.DisplayFor(recepie => recepie.Name)
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.Ingredients)
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.Ingredients):
-        </dd>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.Ingredients):
+                </span>
+                @Html.DisplayFor(recepie => recepie.Ingredients)
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.Instructions):
+                </span>
+                @Html.DisplayFor(recepie => recepie.Instructions)
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.Difficulty)
+                </span>
+                @Html.DisplayFor(recepie => recepie.Difficulty)
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.UploadDate):
+                </span>
+                @Html.DisplayFor(recepie => recepie.UploadDate)
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.duration):
+                </span>
+                @Html.DisplayFor(recepie => recepie.duration)
+            </div>
+            <div>
+                <span class="title">
+                    @Html.DisplayNameFor(recepie => recepie.UserId):
+                </span>
+                @Html.DisplayFor(recepie => recepie.UserId)
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.Instructions):
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.Instructions):
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.Difficulty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.Difficulty)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.UploadDate):
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.UploadDate):
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.duration)
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.duration)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(recepie => recepie.User.UserName):
-        </dt>
-        <dd>
-            @Html.DisplayFor(recepie => recepie.User.UserName):
-        </dd>
-    </dl>
-
-    @if (Model.Comments != null && Model.Comments.Count > 0)
-    {
-        <section id="comments">
-            <h3>Comments</h3>
-            @foreach (var comment in Model.Comments)
+            @if (Model.Comments != null && Model.Comments.Count > 0)
             {
-                <article>
-                    <dl class="dl-horizontal">
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => comment.Title)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => comment.Title)
-                        </dd>
+                <hr />
 
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => comment.UserId)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => comment.UserId)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(modelItem => comment.Content)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(modelItem => comment.Content)
-                        </dd>
-                    </dl>
-                </article>
+                <section id="comments">
+                    <span class="title">
+                        Comments:
+                    </span>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <article>
+                            <div>
+                                <span class="title">
+                                    @Html.DisplayNameFor(modelItem => comment.Title):
+                                </span>
+                                @Html.DisplayFor(modelItem => comment.Title)
+                            </div>
+                            <div>
+                                <span class="title">
+                                    @Html.DisplayNameFor(modelItem => comment.UserId):
+                                </span>
+                                @Html.DisplayFor(modelItem => comment.UserId)
+                            </div>
+                            <div>
+                                <span class="title">
+                                    @Html.DisplayNameFor(modelItem => comment.Content):
+                                </span>
+                                @Html.DisplayFor(modelItem => comment.Content)
+                            </div>
+                        </article>
+                    }
+                </section>
             }
-        </section>
-    }
+        </div>
+            <p>
+                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "Recepie")'">
+                    <i class="fa fa-arrow-left icons"></i>
+                </button>
+                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Edit", "Edit", new { recepieId = Model.Id })'">
+                    <i class="fa fa-edit icons"></i>
+                </button>
+            </p>
+        }
+    </div>
 </div>
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { recepieId = Model.Id }) |
     @Html.ActionLink("Back to Home Page", "Index", "Post")
