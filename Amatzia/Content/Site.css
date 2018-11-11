@@ -45,9 +45,3 @@ textarea {
     display: inline-block;
     width: 100%;
 }
-
-#map {
-    height: 250px; 
-    width: 250px;
-    background-color: aqua;
-}
