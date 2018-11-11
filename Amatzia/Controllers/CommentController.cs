@@ -25,7 +25,7 @@ namespace Amatzia.Controllers
             return View(comments);
         }
 
-
+                                                                                                                                                                             
         // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
