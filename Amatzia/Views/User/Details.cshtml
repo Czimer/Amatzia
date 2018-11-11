@@ -11,13 +11,13 @@
 <div class="loginDiv">
     <div class="loginForm form-horizontal">
         <h1>User details</h1>
+        <hr />
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <div id="modelDetails">
-                <hr />
+            <div id="modelDetails" class="col-sm-6">
                 <div>
                     <span class="title">
                         @Html.DisplayNameFor(user => user.FirstName):
@@ -27,43 +27,40 @@
                 <div>
                     <span class="title">
                         @Html.DisplayNameFor(user => user.LastName):
-                        </span>
-                            @Html.DisplayFor(user => user.LastName)
+                    </span>
+                    @Html.DisplayFor(user => user.LastName)
                 </div>
                 <div>
                     <span class="title">
                         @Html.DisplayNameFor(user => user.Gender):
-                        </span>
-                            @Html.DisplayFor(user => user.Gender)
+                    </span>
+                    @Html.DisplayFor(user => user.Gender)
                 </div>
                 <div>
                     <span class="title">
                         @Html.DisplayNameFor(user => user.DateOfBirth):
-                        </span>
-                            @Html.DisplayFor(user => user.DateOfBirth)
+                    </span>
+                    @Html.DisplayFor(user => user.DateOfBirth)
                 </div>
-                
+
                 <div>
                     <span class="title">
                         @Html.DisplayNameFor(user => user.Country):
-                        </span>
+                    </span>
                     <span id="countryValue">
                         @Html.DisplayFor(user => user.Country)
                     </span>
                 </div>
-                </div>
+            </div>
+
+            <div id="map" class="col-sm-6"></div>
 
             <p>
-                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "User")'">
-                    <i class="fa fa-arrow-left icons"></i>
-                </button>
-                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Edit", "User", new { UserId = Model.UserId })'">
-                    <i class="fa fa-edit icons"></i>
-                </button>
+                @Html.ActionLink(".", "Index", new { UserId = Model.UserId }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
+                @Html.ActionLink(".", "Edit", new { UserId = Model.UserId }, new { @class = "btn-link btn-login fa fa-edit icons" })
             </p>
         }
 
-        <div id="map">check</div>
         <script src='@Url.Content("~/Scripts/GoogleMaps/GoogleMaps.js")' type="text/javascript"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe2cx9NLqtDipMKZ1J2EeioMAn2W9L_20&callback=initMap" type="text/javascript"></script>
     </div>

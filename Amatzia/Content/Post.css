@@ -8,9 +8,8 @@
 }
 
 .loginDiv {
-    width: 169%;
+    width: 100%;
     height: 50%;
-    margin-left: -34%;
     margin-top: 15%;
     border: 1px solid;
     border-color: lightgray;
@@ -26,9 +25,9 @@
 
     .flex-container > div {
         background-color: #908f8f99;
-        width: 445px;
+        width: 387px;
         margin: 34px;
-        height: 445px;
+        height: 387px;
         padding-top: 27px;
         text-align: center;
         font-size: 18px;
@@ -38,9 +37,9 @@
 
 .recipe {
     background-color: #908f8f99;
-    width: 445px;
+    width: 387px;
     margin: 34px;
-    height: 445px;
+    height: 387px;
     padding-top: 27px;
     text-align: center;
     font-size: 18px;
@@ -53,7 +52,6 @@
 }
 
 .form-control-comment {
-    display: block;
     width: 60%;
     height: 34px;
     padding: 6px 12px;
@@ -117,7 +115,7 @@
     width: 26%;
     padding: 16px;
     border-radius: 25px;
-    margin-top: 60px;
+    margin-top: 10px;
 }
 
 h1 {

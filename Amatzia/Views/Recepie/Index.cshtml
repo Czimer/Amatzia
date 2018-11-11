@@ -35,34 +35,27 @@
                     {
                         foreach (var recepie in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => recepie.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => recepie.User.UserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => recepie.duration)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => recepie.Difficulty)
-                                </td>
-                                <td>
-                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Edit", "Recepie", new { RecepieId = recepie.Id })'">
-                                            <i class="fa fa-edit icons"></i>
-                                        </button>
-                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Details", "Recepie", new { RecepieId = recepie.Id })'">
-                                            <i class="fa fa-info-circle icons"></i>
-                                        </button>
-                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Delete", "Recepie", new { RecepieId = recepie.Id })'">
-                                            <i class="fa fa-trash icons"></i>
-                                        </button>
-                                        <button class="btn-link btn-actions" onclick="location.href='@Url.Action("Index", "Comment", new { RecepieId = recepie.Id })'">
-                                            <i class="fa fa-comments icons"></i>
-                                        </button>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => recepie.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => recepie.User.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => recepie.duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => recepie.Difficulty)
+                        </td>
+                        <td>
+                        @Html.ActionLink("|", "Edit", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-edit icons" })
+                        @Html.ActionLink("|", "Details", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-info-circle icons" })
+                        @Html.ActionLink("|", "Delete", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-trash icons" })
+                        @Html.ActionLink("|", "Index", "Comment", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-comments icons" })
+                      
+                        </td>
+                    </tr>
                         }
                     }
                 </table>

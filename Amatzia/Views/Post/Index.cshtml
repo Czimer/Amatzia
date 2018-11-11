@@ -41,15 +41,6 @@
                 <br />
                 <hr />
                 <div class="searchDiv">
-                    @Html.Label("Ingredients", htmlAttributes: new { @class = "col-md-2 title" })
-                    <span class="col-md-4">
-                        @Html.Editor("Ingredients", new { htmlAttributes = new { @class = "form-control" } })
-                    </span>
-
-                </div>
-                <br />
-                <hr />
-                <div class="searchDiv">
                     <button class="btn-primary btn-login" name="search" type="submit">
                         <i class="fa fa-search icons"> Search </i>
                     </button>
@@ -91,11 +82,6 @@
                                     </a>
                                 </p>
                             </header>
-                            <div>
-                                <p>
-                                    @Html.DisplayFor(modelItem => recepie.Instructions)
-                                </p>
-                            </div>
                         </article>
                     </section>
 
@@ -107,17 +93,15 @@
                     <h3>Post a comment</h3>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <p>
-                        @Html.LabelFor(model => comment.Title, htmlAttributes: new { @class = "title col-md-3" })
-                        @Html.EditorFor(model => comment.Title, new { htmlAttributes = new { @class = "form-control-comment col-md-9" } })
+                        @Html.LabelFor(model => comment.Title, htmlAttributes: new { @class = "title" })
+                        @Html.EditorFor(model => comment.Title, new { htmlAttributes = new { @class = "form-control-comment" } })
                         @Html.ValidationMessageFor(model => comment.Title, "", new { @class = "text-danger" })
                     </p>
                     <p>
-                        @Html.LabelFor(model => comment.Content, htmlAttributes: new { @class = "title col-md-3" })
-                        @Html.EditorFor(model => comment.Content, new { htmlAttributes = new { @class = "form-control-comment col-md-9" } })
+                        @Html.LabelFor(model => comment.Content, htmlAttributes: new { @class = "title" })
+                        @Html.EditorFor(model => comment.Content, new { htmlAttributes = new { @class = "form-control-comment" } })
                         @Html.ValidationMessageFor(model => comment.Content, "", new { @class = "text-danger" })
                     </p>
-                    <br />
-                    <hr />
                     <p>
                         <input type="submit" value="Post" class="btn-primary btn-login" />
                     </p>
