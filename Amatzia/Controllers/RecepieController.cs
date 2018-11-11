@@ -59,7 +59,7 @@ namespace Amatzia.Controllers
                 AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
                 AmatziaDB.SaveChanges();
 
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Post");
                 
             }
 

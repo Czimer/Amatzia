@@ -64,7 +64,7 @@ namespace Amatzia.Controllers
                 comment.Recepie = recepie;
                 comment.User = user;
                 comment.UserId = user.UserId;
-                comment.Id = new Random().Next(1, 1000);
+                //comment.Id = new Random().Next(1, 1000);
 
                 AmatziaDB.Comments.Add(comment);
 
