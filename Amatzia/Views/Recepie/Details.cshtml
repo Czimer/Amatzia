@@ -97,15 +97,12 @@
                 </section>
             }
         </div>
-            <p>
-                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Index", "Recepie")'">
-                    <i class="fa fa-arrow-left icons"></i>
-                </button>
-                <button class="btn-link btn-login" onclick="location.href='@Url.Action("Edit", "Edit", new { recepieId = Model.Id })'">
-                    <i class="fa fa-edit icons"></i>
-                </button>
-            </p>
         }
+        <p>
+            @Html.ActionLink(".", "Index", new { RecepieId = Model.Id }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
+
+            @Html.ActionLink(".", "Edit", new { RecepieId = Model.Id }, new { @class = "btn-link btn-actions fa fa-edit icons" })
+        </p>
     </div>
 </div>
 

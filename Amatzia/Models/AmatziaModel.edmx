@@ -9,17 +9,17 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RecepieId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Content" Type="nchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="50" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Recepies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Ingredients" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -152,8 +152,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RecepieId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-          <Property Name="Content" Type="String" Nullable="true" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Content" Type="String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Recepie" Relationship="AmatziaModel.FK_Comments_Recepie" FromRole="Comment" ToRole="Recepie" />
           <NavigationProperty Name="User" Relationship="AmatziaModel.FK_Comments_User" FromRole="Comment" ToRole="User" />

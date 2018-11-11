@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Applications\Amatzia\Amatzia\Models\AmatziaModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Moshe Katz\Desktop\yarin\Amatzia\Amatzia\Models\AmatziaModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
