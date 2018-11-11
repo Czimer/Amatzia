@@ -14,12 +14,12 @@ namespace Amatzia.Controllers
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
 
         // GET: Comments
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? RecepieId)
         {
             var comments = (IEnumerable<Comment>)TempData["Comments"] ?? AmatziaDB.Comments.ToList();
-            if (id != null)
+            if (RecepieId != null)
             {
-                return View(comments.Where(comment => comment.RecepieId == id));
+                return View(comments.Where(comment => comment.RecepieId == RecepieId));
             }
             
             return View(comments);

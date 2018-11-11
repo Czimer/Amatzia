@@ -160,9 +160,10 @@ namespace Amatzia.Controllers
 
 
         // POST: Recepie/Delete/[id]
-        public ActionResult Delete(int RecepieId)
+        public ActionResult Delete(int? RecepieId)
         {
             // Remove the recepie from DB
+            AmatziaDB.Comments.RemoveRange(AmatziaDB.Comments.Where(comment => comment.RecepieId == RecepieId));
             AmatziaDB.Recepies.Remove(AmatziaDB.Recepies.Find(RecepieId));
             AmatziaDB.SaveChanges();
 
