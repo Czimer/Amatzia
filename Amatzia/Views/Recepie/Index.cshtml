@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Content/Recipes.css")
-@Styles.Render("~/Content/Bootstrap.css")
+@Styles.Render("~/Content/Recipes.css", "~/Content/Bootstrap.css")
 
 @using (Html.BeginForm())
 {
@@ -41,7 +40,8 @@
                 {
                     foreach (var recepie in Model)
                     {
-                        <div>
+                        <a class="link" href="@Url.Action("Details", "Recepie")">
+                            <div class="recipe">
                                 <label>
                                     @Html.DisplayFor(modelItem => recepie.Name)
                                     by
@@ -53,9 +53,13 @@
                                 <br />
                                 <label>Difficulty:</label>
                                 @Html.DisplayFor(modelItem => recepie.Difficulty)
-                        </div>
+                            </div>
+                        </a>
                     }
                 }
+                <button class="fab">
+                    <a class="link" href="@Url.Action("Create", "Recepie")">+</a>
+                </button>
             </div>
             <hr />
         </div>

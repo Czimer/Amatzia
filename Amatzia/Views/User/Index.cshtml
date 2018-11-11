@@ -7,104 +7,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Users</h2>
-<br />
+@Styles.Render("~/Content/Users.css", "~/Content/Bootstrap.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
-@using (Html.BeginForm("Search", "User", FormMethod.Get))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    var searchUser = new Amatzia.Models.User();
-    bool UserIsManager = bool.Parse(TempData["IsManager"].ToString());
-
-    <div class="searchDiv">
-        @Html.Label("FirstName", htmlAttributes: new { @class = "control-label col-md-3" })
-        <span class="col-md-4">
-            @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control" } })
-        </span>
-    </div>
-    <div class="searchDiv">
-        @Html.Label("LastName", htmlAttributes: new { @class = "control-label col-md-3" })
-        <span class="col-md-4">
-            @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control" } })
-        </span>
-    </div>
-    if (UserIsManager)
-    {
-        <div class="searchDiv">
-            @Html.Label("DateOfBirth", htmlAttributes: new { @class = "control-label col-md-3" })
-            <span class="col-md-4">
-                @Html.Editor("DateOfBirth", new { htmlAttributes = new { @class = "form-control" } })
-            </span>
-        </div>
-    }
-    if (UserIsManager)
-    {
-        <div class="searchDiv">
-            @Html.LabelFor(user => searchUser.Gender, htmlAttributes: new { @class = "control-label col-md-3" })
-            <span class="col-md-4">
-                @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "form-control" } })
-            </span>
-        </div>
-    }
-    if (UserIsManager)
-    {
-        <div class="searchDiv">
-            @Html.LabelFor(user => searchUser.Country, htmlAttributes: new { @class = "control-label col-md-3" })
-            <span class="col-md-4">
-                @Html.DropDownList("Country", new SelectList((List<string>)TempData["Countries"]), new { htmlAttributes = new { @class = "form-control" } })
-            </span>
-        </div>
-    }
-    <div class="searchDiv">
-        <input class="btn btn-default" type="submit" name="Search" value="חפש" />
-    </div>
-
-    <table id="modelTable" class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(user => user.FirstName)</th>
-            <th>@Html.DisplayNameFor(user => user.LastName)</th>
-            <th>@Html.DisplayNameFor(user => user.Gender)</th>
-            <th>@Html.DisplayNameFor(user => user.DateOfBirth)</th>
-            <th>@Html.DisplayNameFor(user => user.Country)</th>
-            <th></th>
-        </tr>
-
-        @if (Model.Count() > 0)
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+        <h1>@ViewBag.Title</h1>
+        <hr />
+        @using (Html.BeginForm("Search", "User", FormMethod.Get))
         {
-            foreach (var user in Model)
-            {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            var searchUser = new Amatzia.Models.User();
+            bool UserIsManager = bool.Parse(TempData["IsManager"].ToString());
+
+            <div class="searchDiv">
+                @Html.Label("FirstName", htmlAttributes: new { @class = "col-md-2 title" })
+                <span class="col-md-4">
+                    @Html.Editor("FirstName", new { htmlAttributes = new { @class = "form-control" } })
+                </span>
+                @Html.Label("LastName", htmlAttributes: new { @class = "col-md-2 title" })
+                <span class="col-md-4">
+                    @Html.Editor("LastName", new { htmlAttributes = new { @class = "form-control" } })
+                </span>
+            </div>
+            <br />
+            <hr />
+            //if (UserIsManager)
+            //{
+            <div class="searchDiv">
+                @Html.Label("DateOfBirth", htmlAttributes: new { @class = "title col-md-2" })
+                <span class="col-md-4">
+                    @Html.Editor("DateOfBirth", new { htmlAttributes = new { @class = "form-control" } })
+                </span>
+                <div class="searchDiv">
+                    @Html.LabelFor(user => searchUser.Gender, htmlAttributes: new { @class = "title col-md-2" })
+                    <span class="col-md-4">
+                        @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "form-control" } })
+                    </span>
+                </div>
+            </div>
+            //}
+            <br />
+            <hr />
+            // if (UserIsManager)
+            //{
+            <div class="searchDiv">
+                @Html.LabelFor(user => searchUser.Country, htmlAttributes: new { @class = "title col-md-2" })
+                <span class="col-md-4">
+                    @Html.DropDownList("Country", new SelectList((List<string>)TempData["Countries"]), new { htmlAttributes = new { @class = "form-control" } })
+                </span>
+
+            </div>
+            //}
+            <br />
+            <hr />
+            <div class="searchDiv">
+                <button class="btn-primary btn-login" name="search" type="submit">
+                    <i class="fa fa-search icons"> Search </i>
+                </button>
+            </div>
+            <br />
+            <table id="modelTable" class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(currUser => user.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.Gender)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.DateOfBirth)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.Country)
-                    </td>
-                    <td>
-                        @Html.ActionLink("| ", "Details", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-info-sign" })
-
-                        @if (UserIsManager)
-                        {
-                            @Html.ActionLink("| ", "Edit", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-edit" });
-                            @Html.ActionLink(" ", "Delete", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-trash" });
-                        }
-
-                    </td>
+                    <th>@Html.DisplayNameFor(user => user.FirstName)</th>
+                    <th>@Html.DisplayNameFor(user => user.LastName)</th>
+                    <th>@Html.DisplayNameFor(user => user.Gender)</th>
+                    <th>@Html.DisplayNameFor(user => user.DateOfBirth)</th>
+                    <th>@Html.DisplayNameFor(user => user.Country)</th>
+                    <th></th>
                 </tr>
-            }
-        }
-    </table>
+
+                @if (Model.Count() > 0)
+                {
+                    foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(currUser => user.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.DateOfBirth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Country)
+                            </td>
+                            <td>
+                                @Html.ActionLink("| ", "Details", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-info-sign" })
+
+                                @if (UserIsManager)
+                                {
+                                    @Html.ActionLink("| ", "Edit", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-edit" });
+                                    @Html.ActionLink(" ", "Delete", new { UserId = user.UserId }, new { @class = "glyphicon glyphicon-trash" });
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
 
     <div id='layout'>
         <div id='container'>

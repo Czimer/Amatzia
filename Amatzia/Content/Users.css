@@ -17,37 +17,7 @@
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-
-.flex-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-    .flex-container > div {
-        background-color: #908f8f99;
-        width: 234px;
-        margin: 34px;
-        height: 234px;
-        padding-top: 66px;
-        text-align: center;
-        font-size: 18px;
-        border-radius: 117px;
-        color: white;
-    }
-
-.recipe {
-    background-color: #908f8f99;
-    width: 234px;
-    margin: 34px;
-    height: 234px;
-    padding-top: 66px;
-    text-align: center;
-    font-size: 18px;
-    border-radius: 117px;
-    color: white;
-}
-
-    .loginForm {
+.loginForm {
     width: 80%;
     margin-left: 10%;
 }
@@ -80,16 +50,8 @@
     box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
 }
 
-.submitButton {
-    text-align: center;
-}
-
-.btn-login {
-    border: none;
-    width: 100%;
-    padding: 20px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
+.title {
+    text-align:left;
 }
 
 h1 {
@@ -97,7 +59,10 @@ h1 {
     text-align: center;
 }
 
-hr {
-    border-color: #d8d1d1;
-    margin-bottom: 0px;
+.btn-login {
+    border: none;
+    width: 9%;
+    padding: 8px;
+    border-radius: 74px;
+    margin-left: 419px;
 }

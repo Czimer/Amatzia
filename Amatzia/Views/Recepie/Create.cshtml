@@ -4,8 +4,11 @@
 
 @{
     ViewBag.Title = "New Recepie";
-    Layout = "~/Views/Shared/_CleanLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@Styles.Render("~/Content/Register.css")
+
 
 @using (Html.BeginForm())
 {
@@ -14,7 +17,7 @@
 
     <div class="mainDiv">
         <div class="form-horizontal mainForm">
-            <h1>Create your Recepie</h1>
+            <h1>Create your recipe</h1>
             <hr />
             <div>
                 @Html.Label("", (string)ViewBag.Message)
@@ -64,7 +67,8 @@
 
             <br />
             <div class="form-group submitButton">
-                <input type="submit" value="Create" class="btn-primary" />
+                <input type="submit" value="Create" class="btn-primary btn-login" />
+                <input type="button" value="Cancel" class="btn-danger btn-login" />
             </div>
         </div>
     </div>

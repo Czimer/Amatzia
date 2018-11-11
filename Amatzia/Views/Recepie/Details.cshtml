@@ -5,11 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/RecipeDetails.css", 
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="loginDiv">
+    <div class="loginForm form-horizontal">
+
+        <h1>Recipe details</h1>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
 <div id="modelDetails">
     <h4>recepie</h4>
