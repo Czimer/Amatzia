@@ -1,8 +1,8 @@
 ﻿#pieSvg {
-    margin-top: 5%;
-    height: 90%;
-    width: 90%;
-    margin-left: 10%;
+    margin-top: 10%;
+    height: 70%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 text.title {
@@ -30,7 +30,8 @@ svg {
 .legend {
     float: left;
     font-family: "Verdana";
-    font-size: .7em;
+    font-size: 20px;
+    color:white;
 }
 
 .pie text {
@@ -39,9 +40,11 @@ svg {
 }
 
 .pie .gender-text {
-    font-size: .8em;
+    font-size: 20px;
+    color: white;
 }
 
 .pie .value-text {
-    font-size: 3em;
+    font-size: 20px;
+    color: white;
 }
