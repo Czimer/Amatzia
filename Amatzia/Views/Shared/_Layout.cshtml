@@ -4,9 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amatzia's Recipes</title>
-    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Layout.css","~/Content/bootstrap.css")
 </head>
 <body>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=2236309826582543&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -25,20 +34,11 @@
                     <li>@Html.ActionLink("Recepie", "Index", "Recepie")</li>
                     <li>@Html.ActionLink("Stats", "Index", "Stats")</li>
                 </ul>
-                <div id="fb-root"></div>
-                <script>
-                    (function (d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s); js.id = id;
-                        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=2236309826582543&autoLogAppEvents=1';
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-                <div class="fb-share-button" data-href="https://www.facebook.com/Amatsia-Foodie-1879918278711452/" data-layout="button" data-size="large" data-mobile-iframe="false" float="right" margin-top=25px><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2FAmatsia-Foodie-1879918278711452%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-
+                <div class="space"></div>
+                    <div class="fb-share-button btn-facebook" data-href="https://www.facebook.com/Amatsia-Foodie-1879918278711452/" data-layout="button" data-size="large" data-mobile-iframe="false" float="right" margin-top=25px><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2FAmatsia-Foodie-1879918278711452%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
             </div>
         </div>
-     
+
 
 
     </div>
