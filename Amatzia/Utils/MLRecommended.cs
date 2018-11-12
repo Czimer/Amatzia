@@ -31,7 +31,7 @@ namespace Amatzia.Utils
         {
             get
             {
-                const String dataFilePath = @"C:\Users\Bar\source\repos\zona\zona\Data.csv";
+                const String dataFilePath = @"\Data.csv";
                 var dataTable = DataTable.New.ReadCsv(dataFilePath);
                 return dataTable;
             }
