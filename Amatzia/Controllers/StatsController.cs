@@ -33,10 +33,10 @@ namespace Amatzia.Controllers
         [HttpGet]
         public ActionResult GetGenderAndPositiveComments()
         {
-            List<Recepie> RecRecepies = new List<Recepie>();
+            List<Recepie> RecRecepies = new CommentController().GetRecommended();
 
-            var RecAndUsers = AmatziaDB.Recepies.Join(AmatziaDB.Users,
-                r => r.Id,
+            var RecAndUsers = RecRecepies.Join(AmatziaDB.Users,
+                r => r.UserId,
                 u => u.UserId,
                 (r, u) => new
                             {
@@ -45,23 +45,13 @@ namespace Amatzia.Controllers
                                 Gender = u.Gender
                             }).ToList();
 
-            var RecRecommandedAndUsers = RecAndUsers;
-
-            foreach (var item in RecAndUsers)
-            {
-                if (RecRecepies.Where(x => x.Id == item.RecId).Count() == 0)
-                {
-                    RecRecommandedAndUsers.Remove(item);
-                }
-            }
-
-            var GenderGroups = RecRecommandedAndUsers.GroupBy(x => x.Gender).Select(group => new
+            var GenderGroups = RecAndUsers.GroupBy(x => x.Gender).Select(group => new
             {
                 gender = group.Key,
                 count = group.Count()
             }).AsEnumerable();
 
-            return Json(GenderGroups);
+            return Json(GenderGroups, JsonRequestBehavior.AllowGet);
         }
 
     }
