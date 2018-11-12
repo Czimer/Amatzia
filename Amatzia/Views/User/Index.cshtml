@@ -34,8 +34,8 @@
             </div>
             <br />
             <hr />
-            //if (UserIsManager)
-            //{
+            if (UserIsManager)
+            {
             <div class="searchDiv">
                 @Html.Label("DateOfBirth", htmlAttributes: new { @class = "title col-md-2" })
                 <span class="col-md-4">
@@ -48,11 +48,11 @@
                     </span>
                 </div>
             </div>
-            //}
+            }
             <br />
             <hr />
-            // if (UserIsManager)
-            //{
+             if (UserIsManager)
+            {
             <div class="searchDiv">
                 @Html.LabelFor(user => searchUser.Country, htmlAttributes: new { @class = "title col-md-2" })
                 <span class="col-md-4">
@@ -60,7 +60,7 @@
                 </span>
 
             </div>
-            //}
+            }
             <br />
             <hr />
             <div class="searchDiv">
@@ -116,3 +116,5 @@
                 }
             </table>
 }
+        </div>
+    </div>
