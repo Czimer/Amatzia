@@ -14,8 +14,10 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    bool UserIsManager = bool.Parse(TempData["IsManager"].ToString());
     
-
+    if (UserIsManager)
+    {
     <div class="loginDiv">
         <div class="loginForm form-horizontal">
             <h1>@ViewBag.Title</h1>
@@ -63,4 +65,5 @@
             <hr />
         </div>
     </div>
-}
+        }
+    }

@@ -22,13 +22,20 @@ namespace Amatzia.Controllers
         // GET: User
         public ActionResult Index()
         {
-            ViewBag.Selected = "User";
-            TempData["Countries"] = AllCountries;
-            TempData["IsManager"] = GlobalVars.IsManager.ToString();
+            try
+            {
+                ViewBag.Selected = "User";
+                TempData["Countries"] = AllCountries;
+                TempData["IsManager"] = GlobalVars.IsManager.ToString();
 
-            IEnumerable<User> Users = (IEnumerable<User>)TempData["UsersFound"] ?? AmatziaDB.Users.ToList();
+                IEnumerable<User> Users = (IEnumerable<User>)TempData["UsersFound"] ?? AmatziaDB.Users.ToList();
 
-            return View(Users);
+                return View(Users);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: User/Create
@@ -43,33 +50,47 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,Gender,DateOfBirth,Country,UserName,Password")] User NewUser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Check if user name already exist
-                if (UserNameAlreadyExist(NewUser.UserName))
+                if (ModelState.IsValid)
                 {
-                    ViewBag.Message = "User name already exist";
-                }
-                else
-                {
-                    AmatziaDB.Users.Add(NewUser);
-                    AmatziaDB.SaveChanges();
+                    // Check if user name already exist
+                    if (UserNameAlreadyExist(NewUser.UserName))
+                    {
+                        ViewBag.Message = "User name already exist";
+                    }
+                    else
+                    {
+                        AmatziaDB.Users.Add(NewUser);
+                        AmatziaDB.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+
+                return View(NewUser);
             }
-
-            return View(NewUser);
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: User/Edit/[id]
         public ActionResult Edit(int? UserId)
         {
-            TempData["Countries"] = AllCountries;
-            User CurrUser = this.GetUserById(UserId);
-            prevUserName = CurrUser.UserName;
+            try
+            {
+                TempData["Countries"] = AllCountries;
+                User CurrUser = this.GetUserById(UserId);
+                prevUserName = CurrUser.UserName;
 
-            return View(CurrUser);
+                return View(CurrUser);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: User/Edit/[id]
@@ -77,29 +98,43 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId, FirstName, LastName, Gender, DateOfBirth, Country, UserName, Password")] User CurrUser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Check if user name already exist
-                if (CurrUser.UserName != prevUserName && UserNameAlreadyExist(CurrUser.UserName))
+                if (ModelState.IsValid)
                 {
-                    ViewBag.Message = "User name already exist";
+                    // Check if user name already exist
+                    if (CurrUser.UserName != prevUserName && UserNameAlreadyExist(CurrUser.UserName))
+                    {
+                        ViewBag.Message = "User name already exist";
+                    }
+                    else
+                    {
+                        AmatziaDB.Entry(CurrUser).State = EntityState.Modified;
+                        AmatziaDB.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
-                else
-                {
-                    AmatziaDB.Entry(CurrUser).State = EntityState.Modified;
-                    AmatziaDB.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
 
-            return View(CurrUser);
+                return View(CurrUser);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
 
         // GET: User/Delete/[id]
         public ActionResult Delete(int? UserId)
         {
-            return View(this.GetUserById(UserId));
+            try
+            {
+                return View(this.GetUserById(UserId));
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: User/Delete/[id]
@@ -107,113 +142,162 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteFinal(int UserId)
         {
-            // Remove the user from DB
-            AmatziaDB.Users.Remove(AmatziaDB.Users.Find(UserId));
-            AmatziaDB.SaveChanges();
+            try
+            {
+                // Remove the user from DB
+                AmatziaDB.Users.Remove(AmatziaDB.Users.Find(UserId));
+                AmatziaDB.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: User/Details/5
         public ActionResult Details(int? UserId)
         {
-            return View(this.GetUserById(UserId));
+            try
+            {
+                return View(this.GetUserById(UserId));
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: User/Search
         [HttpGet]
         public ActionResult Search([Bind(Include = "UserId, FirstName, LastName, Gender, DateOfBirth, Country, UserName, Password")] User SearchedUser)
         {
-            IEnumerable<User> UsersFound = AmatziaDB.Users.ToList();
-
-            if (!string.IsNullOrEmpty(SearchedUser.FirstName))
+            try
             {
-                UsersFound = UsersFound.Where(user => user.FirstName.ToUpper().Contains(SearchedUser.FirstName.ToUpper()));
-            }
+                IEnumerable<User> UsersFound = AmatziaDB.Users.ToList();
 
-            if (!string.IsNullOrEmpty(SearchedUser.LastName))
-            {
-                UsersFound = UsersFound.Where(user => user.LastName.ToUpper().Contains(SearchedUser.LastName.ToUpper()));
-            }
-
-            if (GlobalVars.IsManager)
-            {
-                if (SearchedUser.DateOfBirth != null)
+                if (!string.IsNullOrEmpty(SearchedUser.FirstName))
                 {
-                    UsersFound = UsersFound.Where(user => user.DateOfBirth == SearchedUser.DateOfBirth);
+                    UsersFound = UsersFound.Where(user => user.FirstName.ToUpper().Contains(SearchedUser.FirstName.ToUpper()));
                 }
 
-                if (SearchedUser.Gender != null)
+                if (!string.IsNullOrEmpty(SearchedUser.LastName))
                 {
-                    UsersFound = UsersFound.Where(user => user.Gender == SearchedUser.Gender);
+                    UsersFound = UsersFound.Where(user => user.LastName.ToUpper().Contains(SearchedUser.LastName.ToUpper()));
                 }
 
-                if (SearchedUser.Country != null)
+                if (GlobalVars.IsManager)
                 {
-                    UsersFound = UsersFound.Where(user => user.Country == SearchedUser.Country);
+                    if (SearchedUser.DateOfBirth != null)
+                    {
+                        UsersFound = UsersFound.Where(user => user.DateOfBirth == SearchedUser.DateOfBirth);
+                    }
+
+                    if (SearchedUser.Gender != null)
+                    {
+                        UsersFound = UsersFound.Where(user => user.Gender == SearchedUser.Gender);
+                    }
+
+                    if (SearchedUser.Country != null)
+                    {
+                        UsersFound = UsersFound.Where(user => user.Country == SearchedUser.Country);
+                    }
                 }
+
+                TempData["UsersFound"] = UsersFound;
+
+                return RedirectToAction("Index", "User");
             }
-
-            TempData["UsersFound"] = UsersFound;
-
-            return RedirectToAction("Index", "User");
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // Get the user entity by id
         private User GetUserById(int? UserId)
         {
-            User foundUser = new User();
-
-            // Check if user id is null
-            if (UserId != null)
+            try
             {
-                foundUser = AmatziaDB.Users.Find(UserId);
-            }
+                User foundUser = new User();
 
-            return (foundUser);
+                // Check if user id is null
+                if (UserId != null)
+                {
+                    foundUser = AmatziaDB.Users.Find(UserId);
+                }
+
+                return (foundUser);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         private bool UserNameAlreadyExist(string Username)
         {
-            return (AmatziaDB.Users.Where(user => user.UserName == Username).Count() == 1);
+            try
+            {
+                return (AmatziaDB.Users.Where(user => user.UserName == Username).Count() == 1);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
 
         private static List<string> GetCountries()
         {
-            List<string> lstCountries = new List<string>();
-
-            string URL = "https://restcountries.eu/rest/v2/all";
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-            request.ContentType = "application/json; charset=utf-8";
-
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            using (Stream responseStream = response.GetResponseStream())
+            try
             {
-                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                List<string> lstCountries = new List<string>();
 
-                JArray jaCountries = JArray.Parse(reader.ReadToEnd());
+                string URL = "https://restcountries.eu/rest/v2/all";
 
-                foreach (JObject CountryObject in jaCountries)
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json; charset=utf-8";
+
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                using (Stream responseStream = response.GetResponseStream())
                 {
-                    lstCountries.Add(CountryObject["name"].ToString());
-                }
-            }
+                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
 
-            return (lstCountries);
+                    JArray jaCountries = JArray.Parse(reader.ReadToEnd());
+
+                    foreach (JObject CountryObject in jaCountries)
+                    {
+                        lstCountries.Add(CountryObject["name"].ToString());
+                    }
+                }
+
+                return (lstCountries);
+            }
+            catch (Exception ex)
+            {
+                return new List<string>();
+            }
         }
 
         [HttpGet]
         public ActionResult GetUsersByCountry()
         {
-            var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new
+            try
             {
-                country = group.Key,
-                count = group.Count()
-            }).AsEnumerable();
+                var CountriesGroups = AmatziaDB.Users.GroupBy(x => x.Country).Select(group => new
+                {
+                    country = group.Key,
+                    count = group.Count()
+                }).AsEnumerable();
 
-            return Json(CountriesGroups, JsonRequestBehavior.AllowGet);
+                return Json(CountriesGroups, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
     }
