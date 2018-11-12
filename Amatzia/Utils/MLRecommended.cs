@@ -23,7 +23,7 @@ namespace Amatzia.Utils
         {
             get
             {
-                return DataTable.Rows.Select(row => double.Parse(row["IsSunny"])).ToArray();
+                return DataTable.Rows.Select(row => double.Parse(row["IsRecommended"])).ToArray();
             }
         }
 
