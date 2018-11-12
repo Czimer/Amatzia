@@ -10,6 +10,7 @@ namespace Amatzia.Controllers
     {
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
 
+        [HttpGet]
         public ActionResult Index(int? Recommended)
         {
             if (Recommended != null)

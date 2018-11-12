@@ -44,7 +44,9 @@
                     <button class="btn-primary btn-login" name="search" type="submit">
                         <i class="fa fa-search icons"> Search </i>
                         <div>@Html.ActionLink("show all", "Index", "Post")</div>
-                        <div>@Html.ActionLink("Recommended", "Index", "Post", new { Recommended = 1 })</div>
+                      <a href="@Url.Action("Index", "Post", new { Recommended = 1 })">
+                           Recommended
+                     </a>
                     </button>
                 </div>
                 <br />
