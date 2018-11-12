@@ -44,6 +44,7 @@
                 <div class="searchDiv">
                     @Html.LabelFor(user => searchUser.Gender, htmlAttributes: new { @class = "title col-md-2" })
                     <span class="col-md-4">
+                        @Html.DropDownList("Gender", new SelectList(Enum.GetValues(typeof(Gender))), new { htmlAttributes = new { @class = "gender" } })
                     </span>
                 </div>
             </div>

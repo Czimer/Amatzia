@@ -17,7 +17,7 @@
         {
             @Html.AntiForgeryToken()
 
-        <div id="modelDetails">
+        <div id="modelDetails"  class="col-am-6">
             <hr />
             <div>
                 <span class="title">
@@ -96,6 +96,19 @@
                     }
                 </section>
             }
+        </div>
+        <div class="col-am-6 my-canvas">
+            <canvas id="myCanvas" width="500" height="500"></canvas>
+            <script>
+                var canvas = document.getElementById('myCanvas');
+                var context = canvas.getContext('2d');
+                var imageObj = new Image();
+
+                imageObj.onload = function () {
+                    context.drawImage(imageObj, 69, 50);
+                };
+                imageObj.src = '../Images/recipe.jpg';
+            </script>
         </div>
         }
         <p>
