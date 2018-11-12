@@ -106,7 +106,7 @@
                                 @if (UserIsManager)
                                 {
                                     @Html.ActionLink("|", "Edit", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-edit icons" })
-                                    @Html.ActionLink("|", "Edit", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-trash icons" })
+                                    @Html.ActionLink("|", "Delete", new { UserId = user.UserId }, new { @class = "btn-link btn-actions fa fa-trash icons" })
 
                                 }
 

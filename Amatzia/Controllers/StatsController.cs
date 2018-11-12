@@ -33,7 +33,7 @@ namespace Amatzia.Controllers
         [HttpGet]
         public ActionResult GetGenderAndPositiveComments()
         {
-            List<Recepie> RecRecepies = new CommentController().GetRecommended();
+            List<Recepie> RecRecepies = new PostController().GetRecommended();
 
             var RecAndUsers = RecRecepies.Join(AmatziaDB.Users,
                 r => r.UserId,

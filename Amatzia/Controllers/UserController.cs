@@ -64,6 +64,8 @@ namespace Amatzia.Controllers
                         AmatziaDB.Users.Add(NewUser);
                         AmatziaDB.SaveChanges();
 
+                        Session["LoggedUser"] = NewUser;
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -175,33 +177,33 @@ namespace Amatzia.Controllers
         {
             try
             {
-                IEnumerable<User> UsersFound = AmatziaDB.Users.ToList();
+                List<User> UsersFound = AmatziaDB.Users.ToList();
 
                 if (!string.IsNullOrEmpty(SearchedUser.FirstName))
                 {
-                    UsersFound = UsersFound.Where(user => user.FirstName.ToUpper().Contains(SearchedUser.FirstName.ToUpper()));
+                    UsersFound = UsersFound.Where(user => user.FirstName.Trim(' ').ToUpper().Contains(SearchedUser.FirstName.ToUpper())).ToList<User>();
                 }
 
                 if (!string.IsNullOrEmpty(SearchedUser.LastName))
                 {
-                    UsersFound = UsersFound.Where(user => user.LastName.ToUpper().Contains(SearchedUser.LastName.ToUpper()));
+                    UsersFound = UsersFound.Where(user => user.LastName.Trim(' ').ToUpper().Contains(SearchedUser.LastName.ToUpper())).ToList<User>();
                 }
 
                 if (GlobalVars.IsManager)
                 {
                     if (SearchedUser.DateOfBirth != null)
                     {
-                        UsersFound = UsersFound.Where(user => user.DateOfBirth == SearchedUser.DateOfBirth);
+                        UsersFound = UsersFound.Where(user => user.DateOfBirth.Equals(SearchedUser.DateOfBirth)).ToList<User>();
                     }
 
                     if (SearchedUser.Gender != null)
                     {
-                        UsersFound = UsersFound.Where(user => user.Gender == SearchedUser.Gender);
+                        UsersFound = UsersFound.Where(user => user.Gender.Trim(' ').Equals(SearchedUser.Gender)).ToList<User>();
                     }
 
                     if (SearchedUser.Country != null)
                     {
-                        UsersFound = UsersFound.Where(user => user.Country == SearchedUser.Country);
+                        UsersFound = UsersFound.Where(user => user.Country.Trim(' ').Equals(SearchedUser.Country)).ToList<User>();
                     }
                 }
 
