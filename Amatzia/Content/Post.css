@@ -68,9 +68,16 @@
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
+.tTitle {
+    margin-left: 31px;
+}
+
+.tContent {
+
+}
+
 .title {
     text-align: left;
-    color: gray;
 }
 
 .loginForm {
@@ -116,6 +123,15 @@
     padding: 16px;
     border-radius: 25px;
     margin-top: 10px;
+    padding-top: 10px;
+}
+
+.btn-search {
+    border: none;
+    width: 9%;
+    padding: 8px;
+    border-radius: 74px;
+    margin-left: 419px;
 }
 
 h1 {

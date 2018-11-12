@@ -248,6 +248,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\chef-hat-art-png.png" />
     <Content Include="Images\cooking-wallpaper.jpg" />
+    <Content Include="Images\recipe.jpg" />
     <Content Include="Models\AmatziaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AmatziaModel.Context.cs</LastGenOutput>
@@ -272,7 +273,6 @@
       <DependentUpon>AmatziaModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\facebookApi.js" />
     <Content Include="Scripts\GoogleMaps\GoogleMaps.js" />
     <Content Include="Scripts\Graphs\d3.min.js" />
     <Content Include="Scripts\Graphs\Barchart.js" />

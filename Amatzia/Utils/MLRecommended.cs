@@ -56,79 +56,69 @@ namespace Amatzia.Utils
       
         private static svm_problem CreateProblem(IEnumerable<string> x, double[] y, IReadOnlyList<string> vocabulary)
         {
-            var problemBuilder = new TextClassificationProblemBuilder();
-            var problem = problemBuilder.CreateProblem(X, Y, Vocabulary);
-            return problem;
+            try
+            {
+                var problemBuilder = new TextClassificationProblemBuilder();
+                var problem = problemBuilder.CreateProblem(X, Y, Vocabulary);
+                return problem;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         
         public static C_SVC CreateModel()
-        {        
-            var prob = CreateProblem(X, Y, Vocabulary);
-            const int C = 1;
-            return new C_SVC(prob, KernelHelper.LinearKernel(), C);
+        {
+            try
+            {
+                var prob = CreateProblem(X, Y, Vocabulary);
+                const int C = 1;
+                return new C_SVC(prob, KernelHelper.LinearKernel(), C);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
-        
+
         public static bool IsRec(string strComm)
         {
-            var prob = MLRecommended.CreateNode(strComm);
-            var predo = MLRecommended.CreateModel().Predict(prob);
+            try
+            {
+                var prob = MLRecommended.CreateNode(strComm);
+                var predo = MLRecommended.CreateModel().Predict(prob);
 
-            return Dictionary[(int)predo] == "Recommended";
+                return Dictionary[(int)predo] == "Recommended";
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
-        //public static void Check()
-        //{
-        //    CommentController cComment = new CommentController();
-        //    const String dataFilePath = @"C:\Users\Bar\source\repos\zona\zona\Data.csv";
-        //    var dataTable = DataTable.New.ReadCsv(dataFilePath);
-        //    List<string> x = dataTable.Rows.Select(row => row["Text"]).ToList();
-        //    double[] y = dataTable.Rows.Select(row => double.Parse(row["IsSunny"])).ToArray();
-        //    var vocabulary = x.SelectMany(GetWords).Distinct().OrderBy(word => word).ToList();
-          
-
-            
-        //    _predictionDictionary = new Dictionary<int, string> { { -1, "NotRecommended" }, { 1, "Recommended" } };
-
-        //    var comments = cComment.GetAllComments();
-        //    foreach (var comment in comments)
-        //    {
-        //        string comm = comment.Content;
-        //        if (comm != null)
-        //        {
-        //            var newprob = TextClassificationProblemBuilder.CreateNode(comm, vocabulary);
-        //            var predo = model.Predict(newprob);
-
-        //            bool nIsRec = _predictionDictionary[(int)predo] == "Recommended";
-        //        }
-        //    }
-        //    //do
-        //    //{
-        //    //    userInput = Console.ReadLine();
-        //    //    var newX = TextClassificationProblemBuilder.CreateNode(userInput, vocabulary);
-
-        //    //    var predictedY = model.Predict(newX);
-        //    //    Console.WriteLine("The prediction is {0}", _predictionDictionary[(int)predictedY]);
-        //    //    Console.WriteLine(new string('=', 50));
-        //    //} while (userInput != "quit");
-
-        //}
-
-        //private static void readData()
-        //{
-        //    const String dataFilePath = @"C:\Users\Bar\source\repos\zona\zona\Data.csv";
-        //    var dataTable = DataTable.New.ReadCsv(dataFilePath);
-        //    List<string> x = dataTable.Rows.Select(row => row["Text"]).ToList();
-        //    double[] y = dataTable.Rows.Select(row => double.Parse(row["IsRecommended"])).ToArray();
-        //    var vocabulary = x.SelectMany(GetWords).Distinct().OrderBy(word => word).ToList();
-
-        //}
 
         private static IEnumerable<string> GetWords(string x)
         {
-            return x.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            try
+            {
+                return x.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
+
         public static svm_node[] CreateNode(string strComm)
         {
-           return TextClassificationProblemBuilder.CreateNode(strComm, Vocabulary);
+            try
+            {
+                return TextClassificationProblemBuilder.CreateNode(strComm, Vocabulary);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 
@@ -136,34 +126,48 @@ namespace Amatzia.Utils
     {
         public svm_problem CreateProblem(IEnumerable<string> x, double[] y, IReadOnlyList<string> vocabulary)
         {
-            return new svm_problem
+            try
             {
-                y = y,
-                x = x.Select(xVector => CreateNode(xVector, vocabulary)).ToArray(),
-                l = y.Length
-            };
+                return new svm_problem
+                {
+                    y = y,
+                    x = x.Select(xVector => CreateNode(xVector, vocabulary)).ToArray(),
+                    l = y.Length
+                };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public static svm_node[] CreateNode(string x, IReadOnlyList<string> vocabulary)
         {
-            var node = new List<svm_node>(vocabulary.Count);
-
-            string[] words = x.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-            for (int i = 0; i < vocabulary.Count; i++)
+            try
             {
-                int occurenceCount = words.Count(s => String.Equals(s, vocabulary[i], StringComparison.OrdinalIgnoreCase));
-                if (occurenceCount == 0)
-                    continue;
+                var node = new List<svm_node>(vocabulary.Count);
 
-                node.Add(new svm_node
+                string[] words = x.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int i = 0; i < vocabulary.Count; i++)
                 {
-                    index = i + 1,
-                    value = occurenceCount
-                });
-            }
+                    int occurenceCount = words.Count(s => String.Equals(s, vocabulary[i], StringComparison.OrdinalIgnoreCase));
+                    if (occurenceCount == 0)
+                        continue;
 
-            return node.ToArray();
+                    node.Add(new svm_node
+                    {
+                        index = i + 1,
+                        value = occurenceCount
+                    });
+                }
+
+                return node.ToArray();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

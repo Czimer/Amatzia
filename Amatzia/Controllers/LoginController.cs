@@ -24,26 +24,33 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User CurrUser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                User EnterUser = AmatziaDB.Users.Where(user => user.UserName == CurrUser.UserName &&
-                                                               user.Password == CurrUser.Password).FirstOrDefault();
-
-                // Validate user and password
-                if (EnterUser != null)
+                if (ModelState.IsValid)
                 {
-                    // Set user is manager or not
-                    GlobalVars.IsManager = EnterUser.IsManager ? true : false;
-                    TempData["IsManager"] = GlobalVars.IsManager.ToString();
-                    Session["LoggedUser"] = EnterUser;
+                    User EnterUser = AmatziaDB.Users.Where(user => user.UserName == CurrUser.UserName &&
+                                                                   user.Password == CurrUser.Password).FirstOrDefault();
 
-                    return RedirectToAction("Index", "Home");
+                    // Validate user and password
+                    if (EnterUser != null)
+                    {
+                        // Set user is manager or not
+                        GlobalVars.IsManager = EnterUser.IsManager ? true : false;
+                        TempData["IsManager"] = GlobalVars.IsManager.ToString();
+                        Session["LoggedUser"] = EnterUser;
+
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+
+                ViewBag.Message = "User name or password are incorrect";
+
+                return View(CurrUser);
             }
-
-            ViewBag.Message = "User name or password are incorrect";
-
-            return View(CurrUser);
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
     }
 }

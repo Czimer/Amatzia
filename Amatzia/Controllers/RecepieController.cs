@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Amatzia.Models;
+using Amatzia.Utils;
 
 namespace Amatzia.Controllers
 {
@@ -14,6 +15,8 @@ namespace Amatzia.Controllers
 
         public ActionResult Index()
         {
+            TempData["IsManager"] = GlobalVars.IsManager.ToString();
+
             ViewBag.Selected = "Recepies";
 
             IEnumerable<Recepie> Recepies = (IEnumerable<Recepie>)TempData["Recepies"] ?? AmatziaDB.Recepies.ToList();
@@ -26,17 +29,24 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id, UserId, Name, Ingredients, Instructions, UploadDate, Difficulty, duration")] Recepie currRecepie)
         {
-            if (ModelState.IsValid)
+            try
             {
-                User currUser = Session["LoggedUser"] as User;
-                currRecepie.User = currUser;
-                currRecepie.UserId = currUser.UserId;
-                AmatziaDB.Entry(currRecepie).State = EntityState.Modified;
-                AmatziaDB.SaveChanges();
-                return RedirectToAction("Index"); 
-            }
+                if (ModelState.IsValid)
+                {
+                    User currUser = Session["LoggedUser"] as User;
+                    currRecepie.User = currUser;
+                    currRecepie.UserId = currUser.UserId;
+                    AmatziaDB.Entry(currRecepie).State = EntityState.Modified;
+                    AmatziaDB.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(currRecepie);
+                return View(currRecepie);
+            }
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         public ActionResult GetRecepie()
@@ -50,24 +60,32 @@ namespace Amatzia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Ingredients,Instructions,Difficulty,duration")] Recepie NewRecepie)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Get the logged user
-                User currUser = Session["LoggedUser"] as User;
-                NewRecepie.UserId = currUser.UserId;
-                NewRecepie.Id = new Random().Next(1,1000);
-                NewRecepie.UploadDate = DateTime.Now;
-                NewRecepie.User = currUser;
-                AmatziaDB.Recepies.Add(NewRecepie);
-                AmatziaDB.Users.Attach(NewRecepie.User);
-                AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
-                AmatziaDB.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    // Get the logged user
+                    User currUser = Session["LoggedUser"] as User;
+                    NewRecepie.UserId = currUser.UserId;
+                    NewRecepie.Id = new Random().Next(1, 1000);
+                    NewRecepie.UploadDate = DateTime.Now;
+                    NewRecepie.User = currUser;
+                    AmatziaDB.Recepies.Add(NewRecepie);
+                    AmatziaDB.Users.Attach(NewRecepie.User);
+                    AmatziaDB.Entry(currUser).State = System.Data.Entity.EntityState.Modified;
+                    AmatziaDB.SaveChanges();
 
-                return RedirectToAction("Index", "Post");
-                
+                    return RedirectToAction("Index", "Post");
+
+                }
+
+                return View(NewRecepie);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View(NewRecepie);
         }
 
         // GET: Recepie/Create
@@ -80,12 +98,19 @@ namespace Amatzia.Controllers
         [HttpGet]
         public ActionResult Details(int? RecepieId)
         {
-            if (RecepieId == null)
+            try
+            {
+                if (RecepieId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                return (this.GetRecepieById(RecepieId));
+            }
+            catch (Exception ex)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            return (this.GetRecepieById(RecepieId));
         }
 
 
@@ -97,76 +122,105 @@ namespace Amatzia.Controllers
            int? Difficulty,
            int? duration)
         {
-            IEnumerable<Recepie> FilteredRecepies = AmatziaDB.Recepies.Include("Comments").Include("User").ToList();
-
-            if (UploadDate != null)
+            try
             {
-                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.UploadDate == UploadDate);
+                IEnumerable<Recepie> FilteredRecepies = AmatziaDB.Recepies.Include("Comments").Include("User").ToList();
+
+                if (UploadDate != null)
+                {
+                    FilteredRecepies = FilteredRecepies.Where(recepie => recepie.UploadDate == UploadDate);
+                }
+
+
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Name.ToUpper().Contains(Name.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(Ingredients))
+                {
+                    FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Ingredients.ToUpper().Contains(Ingredients.ToUpper()));
+                }
+
+                if (Difficulty != null)
+                {
+                    FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Difficulty == Difficulty);
+                }
+
+                if (duration != null)
+                {
+                    FilteredRecepies = FilteredRecepies.Where(recepie => recepie.duration == duration);
+                }
+
+                TempData["Recepie"] = FilteredRecepies;
+
+                return RedirectToAction("Index", "Post");
             }
-
-
-            if (!string.IsNullOrEmpty(Name))
+            catch (Exception ex)
             {
-                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Name.ToUpper().Contains(Name.ToUpper()));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            if (!string.IsNullOrEmpty(Ingredients))
-            {
-                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Ingredients.ToUpper().Contains(Ingredients.ToUpper()));
-            }
-
-            if (Difficulty != null)
-            {
-                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.Difficulty == Difficulty);
-            }
-
-            if (duration != null)
-            {
-                FilteredRecepies = FilteredRecepies.Where(recepie => recepie.duration == duration);
-            }
-
-            TempData["Recepie"] = FilteredRecepies;
-
-            return RedirectToAction("Index", "Post");
         }
 
 
         // GET: Recepie/Edit/[id]
         public ActionResult Edit(int? RecepieId)
         {
-            return (this.GetRecepieById(RecepieId));
+            try
+            {
+                return (this.GetRecepieById(RecepieId));
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // Get the recepie entity by id
         private ActionResult GetRecepieById(int? RecepieId)
         {
-            // Check if recepie id is null
-            if (RecepieId == null)
+            try
+            {
+                // Check if recepie id is null
+                if (RecepieId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                // Get the user entity
+                Recepie currRecepie = AmatziaDB.Recepies.Find(RecepieId);
+
+                // Check if recepie with this id was found
+                if (currRecepie == null)
+                {
+                    return HttpNotFound("Recepie with recepie id " + RecepieId.ToString() + " not found");
+                }
+
+                return View(currRecepie);
+            }
+            catch (Exception ex)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            // Get the user entity
-            Recepie currRecepie = AmatziaDB.Recepies.Find(RecepieId);
-
-            // Check if recepie with this id was found
-            if (currRecepie == null)
-            {
-                return HttpNotFound("Recepie with recepie id " + RecepieId.ToString() + " not found");
-            }
-
-            return View(currRecepie);
         }
 
 
         // POST: Recepie/Delete/[id]
-        public ActionResult Delete(int RecepieId)
+        public ActionResult Delete(int? RecepieId)
         {
-            // Remove the recepie from DB
-            AmatziaDB.Recepies.Remove(AmatziaDB.Recepies.Find(RecepieId));
-            AmatziaDB.SaveChanges();
+            try
+            {
+                // Remove the recepie from DB
+                AmatziaDB.Comments.RemoveRange(AmatziaDB.Comments.Where(comment => comment.RecepieId == RecepieId));
+                AmatziaDB.Recepies.Remove(AmatziaDB.Recepies.Find(RecepieId));
+                AmatziaDB.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
     }
 }
