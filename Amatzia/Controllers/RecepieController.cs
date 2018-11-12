@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Amatzia.Models;
+using Amatzia.Utils;
 
 namespace Amatzia.Controllers
 {
@@ -14,6 +15,8 @@ namespace Amatzia.Controllers
 
         public ActionResult Index()
         {
+            TempData["IsManager"] = GlobalVars.IsManager.ToString();
+
             ViewBag.Selected = "Recepies";
 
             IEnumerable<Recepie> Recepies = (IEnumerable<Recepie>)TempData["Recepies"] ?? AmatziaDB.Recepies.ToList();
