@@ -23,7 +23,7 @@
 
         <br />
         <div class="form-group">
-            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
+            @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class = "form-control col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password), @type = "password" } })
             @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger col-md-6" })
         </div>
 

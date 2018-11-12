@@ -61,7 +61,7 @@
 
             <br />
             <div class="form-group">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password) } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  col-md-6", placeholder = @Html.DisplayNameFor(model => model.Password), @type = "password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-md-6" })
             </div>
 

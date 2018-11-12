@@ -14,7 +14,7 @@ namespace Amatzia.Controllers
         private AmatziaEntities AmatziaDB = new AmatziaEntities();
 
         public ActionResult Index()
-        {
+        { 
             TempData["IsManager"] = GlobalVars.IsManager.ToString();
 
             ViewBag.Selected = "Recepies";
@@ -168,6 +168,14 @@ namespace Amatzia.Controllers
         {
             try
             {
+                Recepie currRecepie = AmatziaDB.Recepies.Where(r => r.Id == RecepieId).FirstOrDefault();
+                User currUser = Session["LoggedUser"] as User;
+
+                if (currUser.UserId != currRecepie.UserId)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User is not allowd to edit this recepie");
+                }
+
                 return (this.GetRecepieById(RecepieId));
             }
             catch (Exception ex)

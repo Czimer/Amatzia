@@ -80,10 +80,10 @@
                                     by
                                     @Html.DisplayFor(modelItem => recepie.User.UserName)
                                     -
-                                    <a href="#comments">
+                                    <label>
                                         @{int countOfComments = recepie.Comments == null ? 0 : recepie.Comments.Count();}
                                         @Html.DisplayFor(modelItem => countOfComments) comments
-                                    </a>
+                                    </label>
                                 </p>
                             </header>
                         </article>

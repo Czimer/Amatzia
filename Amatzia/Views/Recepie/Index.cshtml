@@ -16,8 +16,6 @@
 
     bool UserIsManager = bool.Parse(TempData["IsManager"].ToString());
     
-    if (UserIsManager)
-    {
     <div class="loginDiv">
         <div class="loginForm form-horizontal">
             <h1>@ViewBag.Title</h1>
@@ -37,27 +35,32 @@
                     {
                         foreach (var recepie in Model)
                         {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => recepie.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => recepie.User.UserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => recepie.duration)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => recepie.Difficulty)
-                        </td>
-                        <td>
-                        @Html.ActionLink("|", "Edit", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-edit icons" })
-                        @Html.ActionLink("|", "Details", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-info-circle icons" })
-                        @Html.ActionLink("|", "Delete", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-trash icons" })
-                        @Html.ActionLink("|", "Index", "Comment", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-comments icons" })
-                      
-                        </td>
-                    </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.User.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.duration)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => recepie.Difficulty)
+                                </td>
+                                <td>
+
+                                    @Html.ActionLink("|", "Details", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-info-circle icons" })
+                                    @Html.ActionLink("|", "Edit", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-edit icons" })
+
+                                    @if (UserIsManager)
+                                    {
+                                        @Html.ActionLink("|", "Delete", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-trash icons" })
+                                    }
+
+                                    @Html.ActionLink("|", "Index", "Comment", new { RecepieId = recepie.Id }, new { @class = "btn-link btn-actions fa fa-comments icons" })
+                                </td>
+                            </tr>
                         }
                     }
                 </table>
@@ -65,5 +68,4 @@
             <hr />
         </div>
     </div>
-        }
     }
