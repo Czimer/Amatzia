@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Amatzia.Models;
 using Amatzia.Utils;
@@ -27,54 +29,68 @@ namespace Amatzia.Controllers
 
         public List<Models.Recepie> GetRecommended()
         {
-            List<Models.Recepie> lstRecepies = new List<Recepie>();
-            var recipe = AmatziaDB.Recepies.Include("Comments").ToList();
-            foreach (var rcp in recipe)
+            try
             {
-                //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
-                var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
-                string comm = string.Empty;
-                foreach (var comment in comments)
+                List<Models.Recepie> lstRecepies = new List<Recepie>();
+                var recipe = AmatziaDB.Recepies.Include("Comments").ToList();
+                foreach (var rcp in recipe)
                 {
-                    //comm = comm + " " + comment;
-                    comm = comm + " " + comment.Content;
-                }
-                if (comm != null)
-                {
-                    bool bIsRec = MLRecommended.IsRec(comm);
-                    if (bIsRec && !lstRecepies.Contains(rcp))
+                    //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
+                    var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
+                    string comm = string.Empty;
+                    foreach (var comment in comments)
                     {
-                        lstRecepies.Add(rcp);
+                        //comm = comm + " " + comment;
+                        comm = comm + " " + comment.Content;
+                    }
+                    if (comm != null)
+                    {
+                        bool bIsRec = MLRecommended.IsRec(comm);
+                        if (bIsRec && !lstRecepies.Contains(rcp))
+                        {
+                            lstRecepies.Add(rcp);
+                        }
                     }
                 }
+                return lstRecepies;
             }
-            return lstRecepies;
+            catch (Exception ex)
+            {
+                return new List<Recepie>();
+            }
         }
 
         public List<Models.Recepie> GetUnRecommended()
         {
-            List<Models.Recepie> lstRecepies = new List<Recepie>();
-            var recipe = AmatziaDB.Recepies.ToList();
-            foreach (var rcp in recipe)
+            try
             {
-                //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
-                var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
-                string comm = string.Empty;
-                foreach (var comment in comments)
+                List<Models.Recepie> lstRecepies = new List<Recepie>();
+                var recipe = AmatziaDB.Recepies.ToList();
+                foreach (var rcp in recipe)
                 {
-                    //comm = comm + " " + comment;
-                    comm = comm + " " + comment.Content;
-                }
-                if (comm != null)
-                {
-                    bool bIsRec = MLRecommended.IsRec(comm);
-                    if (!bIsRec && !lstRecepies.Contains(rcp))
+                    //var comments = System.IO.File.ReadAllLines(@"C:\Users\Bar\Documents\comments.txt");
+                    var comments = AmatziaDB.Comments.Where((x) => x.RecepieId == rcp.Id);
+                    string comm = string.Empty;
+                    foreach (var comment in comments)
                     {
-                        lstRecepies.Add(rcp);
+                        //comm = comm + " " + comment;
+                        comm = comm + " " + comment.Content;
+                    }
+                    if (comm != null)
+                    {
+                        bool bIsRec = MLRecommended.IsRec(comm);
+                        if (!bIsRec && !lstRecepies.Contains(rcp))
+                        {
+                            lstRecepies.Add(rcp);
+                        }
                     }
                 }
+                return lstRecepies;
             }
-            return lstRecepies;
+            catch (Exception ex)
+            {
+                return new List<Recepie>();
+            }
         }
 
 
