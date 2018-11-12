@@ -17,86 +17,86 @@
         {
             @Html.AntiForgeryToken()
 
-        <div id="modelDetails">
-            <hr />
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.Name):
-                </span>
-                @Html.DisplayFor(recepie => recepie.Name)
-            </div>
-
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.Ingredients):
-                </span>
-                @Html.DisplayFor(recepie => recepie.Ingredients)
-            </div>
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.Instructions):
-                </span>
-                @Html.DisplayFor(recepie => recepie.Instructions)
-            </div>
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.Difficulty)
-                </span>
-                @Html.DisplayFor(recepie => recepie.Difficulty)
-            </div>
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.UploadDate):
-                </span>
-                @Html.DisplayFor(recepie => recepie.UploadDate)
-            </div>
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.duration):
-                </span>
-                @Html.DisplayFor(recepie => recepie.duration)
-            </div>
-            <div>
-                <span class="title">
-                    @Html.DisplayNameFor(recepie => recepie.UserId):
-                </span>
-                @Html.DisplayFor(recepie => recepie.UserId)
-            </div>
-
-            @if (Model.Comments != null && Model.Comments.Count > 0)
-            {
+            <div id="modelDetails">
                 <hr />
-
-                <section id="comments">
+                <div>
                     <span class="title">
-                        Comments:
+                        @Html.DisplayNameFor(recepie => recepie.Name):
                     </span>
-                    @foreach (var comment in Model.Comments)
-                    {
-                        <article>
-                            <div>
-                                <span class="title">
-                                    @Html.DisplayNameFor(modelItem => comment.Title):
-                                </span>
-                                @Html.DisplayFor(modelItem => comment.Title)
-                            </div>
-                            <div>
-                                <span class="title">
-                                    @Html.DisplayNameFor(modelItem => comment.UserId):
-                                </span>
-                                @Html.DisplayFor(modelItem => comment.UserId)
-                            </div>
-                            <div>
-                                <span class="title">
-                                    @Html.DisplayNameFor(modelItem => comment.Content):
-                                </span>
-                                @Html.DisplayFor(modelItem => comment.Content)
-                            </div>
-                        </article>
-                    }
-                </section>
-            }
-        </div>
+                    @Html.DisplayFor(recepie => recepie.Name)
+                </div>
+
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.Ingredients):
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.Ingredients)
+                </div>
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.Instructions):
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.Instructions)
+                </div>
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.Difficulty)
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.Difficulty)
+                </div>
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.UploadDate):
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.UploadDate)
+                </div>
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.duration):
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.duration)
+                </div>
+                <div>
+                    <span class="title">
+                        @Html.DisplayNameFor(recepie => recepie.UserId):
+                    </span>
+                    @Html.DisplayFor(recepie => recepie.UserId)
+                </div>
+
+                @if (Model.Comments != null && Model.Comments.Count > 0)
+                {
+                    <hr />
+
+                    <section id="comments">
+                        <span class="title">
+                            Comments:
+                        </span>
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <article>
+                                <div>
+                                    <span class="title">
+                                        @Html.DisplayNameFor(modelItem => comment.Title):
+                                    </span>
+                                    @Html.DisplayFor(modelItem => comment.Title)
+                                </div>
+                                <div>
+                                    <span class="title">
+                                        @Html.DisplayNameFor(modelItem => comment.UserId):
+                                    </span>
+                                    @Html.DisplayFor(modelItem => comment.UserId)
+                                </div>
+                                <div>
+                                    <span class="title">
+                                        @Html.DisplayNameFor(modelItem => comment.Content):
+                                    </span>
+                                    @Html.DisplayFor(modelItem => comment.Content)
+                                </div>
+                            </article>
+                        }
+                    </section>
+                }
+            </div>
         }
         <p>
             @Html.ActionLink(".", "Index", new { RecepieId = Model.Id }, new { @class = "btn-link btn-login fa fa-arrow-left icons" })
